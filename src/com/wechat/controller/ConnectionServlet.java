@@ -16,14 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wechat.model.bean.Images;
-import com.wechat.model.bean.TextMessage;
-import com.wechat.model.configuration.TokenConfig;
 import com.wechat.model.dao.WxDao;
-import com.wechat.utils.MessageUtil;
 import com.wechat.utils.StringUtil;
-
-import cn.hutool.http.HttpUtil;
 
 
 
@@ -63,7 +57,9 @@ public class ConnectionServlet extends HttpServlet{
 		String responseStr=WxDao.getResponseStr(xmlMap);
 		
 		//回送给微信服务器
+
 		resp.getWriter().print(responseStr);
+	
 		
 	}
 	

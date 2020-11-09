@@ -88,10 +88,11 @@ public class WxDao {
 	}
 
 	//处理文本内容
+	@SuppressWarnings("finally")
 	private static String handleTextMessage(Map<String, String> xmlMap) {
 		//增加一个客服回复功能
 		//调用客服接口
-		String url=TokenConfig.getCustomerUrl();
+		//String url=TokenConfig.getCustomerUrl();
 		
 //		for(int i=0;i<10;i++) {
 //			String result=TextTemplate.getCustomerTemplate((i+1)+"号技师为您服务！", xmlMap);
@@ -100,8 +101,13 @@ public class WxDao {
 		//回复用户头像
 		//String result2=TextTemplate.getCustomerImageTemplate(xmlMap);
 		//HttpUtil.post(url, result2);
-		
-		return TextTemplate.getTextTemplate(xmlMap);
+		try {
+			return "success";
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			return TextTemplate.getTextTemplate(xmlMap);
+		}
 	} 
 	
 

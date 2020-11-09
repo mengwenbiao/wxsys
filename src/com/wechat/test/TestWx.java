@@ -2,11 +2,16 @@ package com.wechat.test;
 
 import java.io.File;
 
+import javax.swing.ImageIcon;
+
 import org.junit.Test;
 
 import com.wechat.model.configuration.TokenConfig;
 
 public class TestWx {
+	
+	
+
 	
 	
 	@Test

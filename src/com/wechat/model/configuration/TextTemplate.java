@@ -23,7 +23,7 @@ public class TextTemplate {
 		switch(type) {
 		case 1:return "关注公众号/:rose/:rose/:rose";
 		case 2:return "感谢你的留言";
-		case 3:return "为什么要离开我？";
+		case 3:return "老客户，欢迎您回家/:rose/:rose/:rose";
 		}
 		return null;
 	}
@@ -131,7 +131,7 @@ public class TextTemplate {
 				"  <FromUserName><![CDATA["+xmlMap.get("ToUserName")+"]]></FromUserName>\r\n" + 
 				"  <CreateTime>"+StringUtil.getWxCreateTime()+"</CreateTime>\r\n" + 
 				"  <MsgType><![CDATA[text]]></MsgType>\r\n" + 
-				"  <Content><![CDATA["+xmlMap.get("Ticket")+"]]></Content>\r\n" + 
+				"  <Content><![CDATA["+getContent(3)+"]]></Content>\r\n" + 
 				"</xml>";
 		return template;
 	}

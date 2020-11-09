@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.wechat.model.bean.Images;
 import com.wechat.model.bean.TextMessage;
-import com.wechat.utils.MessageUtil;
+
 import com.wechat.utils.StringUtil;
 
 
