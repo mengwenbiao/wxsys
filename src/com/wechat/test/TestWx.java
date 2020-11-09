@@ -5,10 +5,6 @@ import java.io.File;
 import org.junit.Test;
 
 import com.wechat.model.configuration.TokenConfig;
-import com.wechat.utils.ImageUtil;
-import com.wechat.utils.ImgUtils;
-
-import cn.hutool.core.io.FileUtil;
 
 public class TestWx {
 	
@@ -34,20 +30,6 @@ public class TestWx {
 		File file2=new File("G:\\a\\ss.jpg");
 		//ImgUtils.getIamgePressText(file1, file2,"你好", -230,-520);
 		
-		
-	}
-	
-	@Test
-	public void testUploads() {
-		String file="http://thirdwx.qlogo.cn/mmopen/VaxZ4UVDKX51iahhbnpfjJOIiaJQPBWlkpy1zS8FjugfIQpeViawgdibp4NBw4sD72y5AnrW4wlsLVgic5icWXjWNHV46qPVj7q0jT/132";
-		String info=null;
-		try {
-			info = ImageUtil.getMediaIdFromUrl(file,"image");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(info);
 		
 	}
 	

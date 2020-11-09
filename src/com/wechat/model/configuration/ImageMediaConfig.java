@@ -63,7 +63,8 @@ public class ImageMediaConfig {
 		ImgUtils.getIamgePressText(targetImage2,targets,nickname,-228,-560);
 		//上传临时素材库
 		//String mediaid=TokenConfig.upload("../../img/Templateimg/targethaibao.jpg","image");
-		String url="E:\\eclipse\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\wechatdemo\\img\\Templateimg\\targethaibao.jpg";
+		//D:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\wechatdemo\img\Templateimg
+		String url="D:\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\wechatdemo\\img\\Templateimg\\targethaibao.jpg";
 		String mediaid=TokenConfig.upload(url,"image");
 		//imageID=new ImageMediaId(mediaid);
 		return mediaid;

@@ -21,7 +21,7 @@ public class TextTemplate {
 	//1 关注回复  2 自动回复  3 其他回复
 	public static String getContent(int type) {
 		switch(type) {
-		case 1:return "关注公众号/左哼哼";
+		case 1:return "关注公众号/:rose/:rose/:rose";
 		case 2:return "感谢你的留言";
 		case 3:return "为什么要离开我？";
 		}
@@ -75,15 +75,9 @@ public class TextTemplate {
 		HttpUtil.post(url, result);
 		//发送海报给关注公众号的用户
 		String media=ImageMediaConfig.getMedia(xmlMap);
-		String result2=TextTemplate.getCustomerImageTemplate(media,xmlMap);
+		String result2=TextTemplate.getCustomerImageTemplate(nickname,xmlMap);
 		HttpUtil.post(url, result2);
-		String template="<xml>\r\n" + 
-				"  <ToUserName><![CDATA["+xmlMap.get("FromUserName")+"]]></ToUserName>\r\n" + 
-				"  <FromUserName><![CDATA["+xmlMap.get("ToUserName")+"]]></FromUserName>\r\n" + 
-				"  <CreateTime>"+StringUtil.getWxCreateTime()+"</CreateTime>\r\n" + 
-				"  <MsgType><![CDATA[text]]></MsgType>\r\n" + 
-				"  <Content><![CDATA["+"欢迎您"+user.getNickname()+getContent(1)+"]]></Content>\r\n" + 
-				"</xml>";
+		String template=getTemplate(media,xmlMap);
 		return template;
 	}
 	//不带参数公众号
@@ -106,17 +100,28 @@ public class TextTemplate {
 		System.out.println("你好2");
 		String url2=TokenConfig.getCustomerUrl();
 		String media=ImageMediaConfig.getMedia(xmlMap);
-		String result2=TextTemplate.getCustomerImageTemplate(media,xmlMap);
+		String result2=TextTemplate.getCustomerImageTemplate(nickname,xmlMap);
 		HttpUtil.post(url2, result2);
-		String template="<xml>\r\n" + 
-				"  <ToUserName><![CDATA["+xmlMap.get("FromUserName")+"]]></ToUserName>\r\n" + 
-				"  <FromUserName><![CDATA["+xmlMap.get("ToUserName")+"]]></FromUserName>\r\n" + 
-				"  <CreateTime>"+StringUtil.getWxCreateTime()+"</CreateTime>\r\n" + 
-				"  <MsgType><![CDATA[text]]></MsgType>\r\n" + 
-				"  <Content><![CDATA["+"欢迎"+nickname+getContent(1)+"]]></Content>\r\n" + 
-				"</xml>";
+		String template=getTemplate(media,xmlMap);
 		return template;
 	}
+	
+	//关注回复海报
+	public static String getTemplate(String media,Map<String, String> xmlMap) {
+		String template="<xml>\r\n" + 
+				"		  <ToUserName><![CDATA["+xmlMap.get("FromUserName")+"]]></ToUserName>\r\n" + 
+				"		  <FromUserName><![CDATA["+xmlMap.get("ToUserName")+"]]></FromUserName>\r\n" + 
+				"		  <CreateTime>"+StringUtil.getWxCreateTime()+"</CreateTime>\r\n" + 
+				"		  <MsgType><![CDATA[image]]></MsgType>\r\n" + 
+				"		  <Image>\r\n" + 
+				"		    <MediaId><![CDATA["+media+"]]></MediaId>\r\n" + 
+				"		  </Image>\r\n" + 
+				"		</xml>";
+		return template;
+		
+	}
+
+	
 	//直接取出参数 
 	public static String getEventParamsTemplate(Map<String, String> xmlMap) {
 		
@@ -131,7 +136,7 @@ public class TextTemplate {
 		return template;
 	}
 	
-	//客服模板选用
+	//客服发送为谁助力
 	public static String getCustomerTemplate(String name,Map<String, String> xmlMap) {
 		String result=""
 				+ "{\r\n" + 
@@ -139,26 +144,23 @@ public class TextTemplate {
 				"    \"msgtype\":\"text\",\r\n" + 
 				"    \"text\":\r\n" + 
 				"    {\r\n" + 
-				"         \"content\":\""+user.getNickname()+"为您助力"+"\"\r\n" + 
+				"         \"content\":\""+user.getNickname()+"已为您助力/:rose/:rose/:rose"+"\"\r\n" + 
 				"    }\r\n" + 
 				"}";
 		return result;
 	}
 	
-	//客服模板选用
-	public static String getCustomerImageTemplate(String media,Map<String, String> xmlMap) {
-		////String headimgurl=user.getHeadimgurl();
-		//String media_id=TokenConfig.upload(headimgurl,"image");
-	//	System.out.println(media_id);
-		String result=""
-				+ "{\r\n" + 
-				"    \"touser\":\""+xmlMap.get("FromUserName")+"\",\r\n" + 
-				"    \"msgtype\":\"image\",\r\n" + 
-				"    \"image\":\r\n" + 
-				"    {\r\n" + 
-				"      \"media_id\":\""+media+"\"\r\n" + 
-				"    }\r\n" + 
-				"}";
+	//客服发送欢迎关注信息
+	public static String getCustomerImageTemplate(String nickname,Map<String, String> xmlMap) {
+	
+		String result="	{\r\n" + 
+				"		    \"touser\":\""+xmlMap.get("FromUserName")+"\",\r\n" + 
+				"		    \"msgtype\":\"text\",\r\n" + 
+				"		    \"text\":\r\n" + 
+				"		    {\r\n" + 
+				"		         \"content\":\""+"欢迎"+nickname+getContent(1)+"\"\r\n" + 
+				"		    }\r\n" + 
+				"		}";
 		return result;
 	}
 
