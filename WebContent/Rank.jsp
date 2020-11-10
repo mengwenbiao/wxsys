@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>hello</h1>
+<h1 style="color:red;text-align:center;">助力排行榜</h1>
+<table border="1" align="center">
+	 <tr>
+    	<th>昵称</th>
+   		 <th>排名</th>
+  	</tr>
+	<tr></tr>
+
+
+</table>
+
 </body>
 </html>

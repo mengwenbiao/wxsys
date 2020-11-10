@@ -3,7 +3,7 @@
     xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     id="WebApp_ID" version="2.5">
-	<servlet>
+  	<servlet>
        <servlet-name>ConnectionServlet</servlet-name>
        <servlet-class>com.wechat.controller.ConnectionServlet</servlet-class>
 	</servlet>
@@ -24,7 +24,7 @@
 
 <!-- <servlet>
        <servlet-name>TestServlet</servlet-name>
-       <servlet-class>com.wechat.controller.TestServlet</servlet-class>
+       <servlet-class>com.wechat.test.TestServlet</servlet-class>
 </servlet>
 <servlet-mapping>
        <servlet-name>TestServlet</servlet-name>

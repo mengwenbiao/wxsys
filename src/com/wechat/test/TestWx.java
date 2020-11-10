@@ -1,17 +1,62 @@
 package com.wechat.test;
 
 import java.io.File;
-
-import javax.swing.ImageIcon;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
 import com.wechat.model.configuration.TokenConfig;
+import com.wechat.model.dao.crm.RankingDao;
+import com.wechat.model.dao.crm.impl.RankingDaoImpl;
+import com.wechat.model.pojo.Ranking;
+
 
 public class TestWx {
 	
+	@Test
+	public void testDaoImpl() {
+		
+		RankingDao rank=new RankingDaoImpl();
+		List<Ranking> a=rank.queryRank();
+		
+		System.out.println(a);
+//		Iterator<Ranking> rk=a.iterator();
+//		while(rk.hasNext()) {
+//			Ranking nickname=rk.next();
+//			String nick=nickname.getNickname();
+//			String openid=nickname.getOpenid();
+//			System.out.println(nick+"---"+openid);
+//			
+//		}
+		for(Ranking b:a) {
+			System.out.println(b);
+			
+		}
+	}
 	
+	
+	@Test
+	public void testDao() {
+		Ranking rk=new Ranking("1111","1");
+		RankingDao rank=new RankingDaoImpl();
+		rank.addRanking(rk);
 
+		
+	}
+	
+	
+	@Test
+	public void cut() {
+		String a="G:\\Test\\header.jpg";
+		String b="G:\\Test\\target.jpg";
+		
+		
+	}
 	
 	
 	@Test

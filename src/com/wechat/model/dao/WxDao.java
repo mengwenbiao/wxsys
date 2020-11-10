@@ -82,8 +82,11 @@ public class WxDao {
 		case "SCAN":
 			//已关注，扫了带参数的二维码
 			return TextTemplate.getEventParamsTemplate(xmlMap);
-		}
 		
+		case "CLICK":
+			//点击菜单，发送对应海报
+			return TextTemplate.getEventClick(xmlMap);
+		}
 		return null;
 	}
 

@@ -3,6 +3,7 @@ package com.wechat.model.dao.crm.base;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -69,5 +70,6 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 			JdbcUtil.close(conn, null, null);
 		}
 	}
+	
 
 }

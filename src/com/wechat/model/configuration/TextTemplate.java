@@ -5,6 +5,9 @@ import java.util.Map;
 
 import com.wechat.bean.User;
 import com.wechat.model.bean.ImageMediaId;
+import com.wechat.model.dao.crm.RankingDao;
+import com.wechat.model.dao.crm.impl.RankingDaoImpl;
+import com.wechat.model.pojo.Ranking;
 import com.wechat.utils.ImgUtils;
 import com.wechat.utils.StringUtil;
 
@@ -45,16 +48,25 @@ public class TextTemplate {
 
 	//处理事件-带参数关注
 	public static String getEventWithParamsTemplate(Map<String, String> xmlMap) {
-		
 		String userOpenId=xmlMap.get("FromUserName");
 		//获取扫描二维码的信息
 		String toUser=xmlMap.get("EventKey");
+		//qrscene_o8ft36DgD0lV9CoQQUjNNqh0rfnU
 		String toUserId=toUser.substring(8);
 		userOpenid=toUserId;
 		System.out.println("扫了谁的的二维码的openid："+toUserId);
 		//获取二维码中带的用户信息
 		String  users=TokenConfig.getUserInfo(toUserId);
 		JSONObject json1=JSONUtil.parseObj(users);
+		//获得二维码带信息的用户昵称
+		String nick=json1.getStr("nickname");
+		//
+		System.out.println("二维码带参数："+nick);
+		//存入数据库
+		Ranking rk=new Ranking(toUserId,nick);
+		RankingDao rank=new RankingDaoImpl();
+		rank.addRanking(rk);
+		
 		System.out.println(userOpenId);
 		String  info=TokenConfig.getUserInfo(userOpenId);//json文件格式
 		//System.out.println(info);
@@ -73,6 +85,9 @@ public class TextTemplate {
 		String url=TokenConfig.getCustomerUrl();
 		String result=TextTemplate.getCustomerTemplate(nickname,xmlMap);
 		HttpUtil.post(url, result);
+		//查看助力榜单
+		String rankUrl=TextTemplate.getRanking();
+		HttpUtil.post(url, rankUrl);
 		//发送海报给关注公众号的用户
 		String media=ImageMediaConfig.getMedia(xmlMap);
 		String result2=TextTemplate.getCustomerImageTemplate(nickname,xmlMap);
@@ -150,6 +165,26 @@ public class TextTemplate {
 		return result;
 	}
 	
+	//	//客服发送排行榜
+	public static String getRanking() {
+		String url="http://vipsm.natapp1.cc/wechatdemo/Rank.jsp";
+		String result="{\r\n" + 
+				"    \"touser\":\""+userOpenid+"\",\r\n" + 
+				"    \"msgtype\":\"news\",\r\n" + 
+				"    \"news\":{\r\n" + 
+				"        \"articles\": [\r\n" + 
+				"         {\r\n" + 
+				"             \"title\":\"点击链接查看您的助力排行榜\",\r\n" + 
+				"             \"description\":\"排行榜\",\r\n" + 
+				"             \"url\":\""+url+"\",\r\n" + 
+				"             \"picurl\":\"PIC_URL\"\r\n" + 
+				"         }\r\n" + 
+				"         ]\r\n" + 
+				"    }\r\n" + 
+				"}";
+		return result;
+	}
+	
 	//客服发送欢迎关注信息
 	public static String getCustomerImageTemplate(String nickname,Map<String, String> xmlMap) {
 	
@@ -162,6 +197,26 @@ public class TextTemplate {
 				"		    }\r\n" + 
 				"		}";
 		return result;
+	}
+
+	//点击菜单回复对应的海报
+	public static String getEventClick(Map<String, String> xmlMap) {
+		String key=xmlMap.get("EventKey");
+		if(key.equals("a001")) {
+			String mediaId=ImageMediaConfig.getMedia(xmlMap);
+			String result=getTemplate(mediaId,xmlMap);
+			return result;
+		}else if(key.equals("a002")) {
+			String mediaId=ImageMediaConfig.getMedia2(xmlMap);
+			String result=getTemplate(mediaId,xmlMap);
+			return result;
+		}
+		else if(key.equals("a003")) {
+			String mediaId=ImageMediaConfig.getMedia3(xmlMap);
+			String result=getTemplate(mediaId,xmlMap);
+			return result;
+		}
+		return null;
 	}
 
 }
