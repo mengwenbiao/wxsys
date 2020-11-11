@@ -65,7 +65,7 @@
 			<div class="tree">
 				<ul style="padding-left:0px;" class="list-group">
 					<li class="list-group-item tree-closed" >
-						<a href="${pageContext.request.contextPath}/view/jsp/main.jsp"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
+						<a href="/wechatdemo/view/jsp/main.jsp"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
 					<li class="list-group-item tree-closed">
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">5</span></span> 
@@ -77,7 +77,7 @@
 								<a href="/DispatcherServlet?method=rolePage"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
+								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 

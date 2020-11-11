@@ -62,25 +62,25 @@
 			<div class="tree">
 				<ul style="padding-left:0px;" class="list-group">
 					<li class="list-group-item tree-closed" >
-						<a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
+						<a href="/wechatdemo/view/jsp/main.jsp"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
 					<li class="list-group-item">
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">5</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
+								<a href="${pageContext.request.contextPath}/view/jsp/user.jsp" style="color:red;"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="role.html"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
+								<a href="#"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
+								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
+								<a href="#"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 活动分析</a> 
+								<a href="#"><i class="glyphicon glyphicon-lock"></i> 活动分析</a> 
 							</li>
 						</ul>
 					</li>

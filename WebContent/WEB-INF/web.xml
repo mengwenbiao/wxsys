@@ -21,6 +21,30 @@
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/LoginServlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>FlagServlet</servlet-name>
+		<servlet-class>com.wechat.controller.FlagServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FlagServlet</servlet-name>
+		<url-pattern>/FlagServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>EditFServlet</servlet-name>
+		<servlet-class>com.wechat.controller.EditFServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EditFServlet</servlet-name>
+		<url-pattern>/EditFServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>UpdateFServlet</servlet-name>
+		<servlet-class>com.wechat.controller.UpdateFServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateFServlet</servlet-name>
+		<url-pattern>/UpdateFServlet</url-pattern>
+	</servlet-mapping>
 	
 	<servlet>
 		<servlet-name>RankingServlet</servlet-name>
