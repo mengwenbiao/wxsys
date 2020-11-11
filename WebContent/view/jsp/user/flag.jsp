@@ -83,7 +83,7 @@ table tbody td:nth-child(even) {
 						<li class="list-group-item tree-closed"><a href="${pageContext.request.contextPath}/view/jsp/main.jsp"><i
 								class="glyphicon glyphicon-dashboard"></i> 控制面板</a></li>
 						<li class="list-group-item"><span><i
-								class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span
+								class="glyphicon glyphicon glyphicon-tasks"></i> 客服管理 <span
 								class="badge" style="float: right">5</span></span>
 							<ul style="margin-top:10px;">
 							<li style="height:30px;">

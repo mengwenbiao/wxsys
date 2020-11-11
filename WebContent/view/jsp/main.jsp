@@ -68,7 +68,7 @@
 						<a href="/wechatdemo/view/jsp/main.jsp"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
 					<li class="list-group-item tree-closed">
-						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">5</span></span> 
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 客服管理 <span class="badge" style="float:right">5</span></span> 
 						<ul style="margin-top:10px;display:none;">
 							<li style="height:30px;">
 								<a href="${pageContext.request.contextPath}/view/jsp/user/user.jsp"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
