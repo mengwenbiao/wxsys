@@ -38,7 +38,7 @@ table tbody td:nth-child(even) {
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<div>
-					<a class="navbar-brand" style="font-size: 32px;" href="#">MES-System</a>
+					<a class="navbar-brand" style="font-size: 32px;" href="#">微信后台管理系统</a>
 				</div>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">

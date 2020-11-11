@@ -30,7 +30,7 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<div>
-					<a class="navbar-brand" style="font-size: 32px;" href="user.html">Mes_sys</a>
+					<a class="navbar-brand" style="font-size: 32px;" href="user.html">后台管理</a>
 				</div>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
@@ -80,7 +80,7 @@
 							<ul style="margin-top: 10px;">
 								<li style="height: 30px;"><a href="user.jsp"
 									style="color: red;"><i class="glyphicon glyphicon-user"></i>
-										用户维护</a></li>
+										用户标签</a></li>
 							</ul></li>
 
 

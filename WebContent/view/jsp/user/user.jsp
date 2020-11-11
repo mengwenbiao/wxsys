@@ -26,7 +26,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <div><a class="navbar-brand" style="font-size:32px;" href="#">MES-System</a></div>
+          <div><a class="navbar-brand" style="font-size:32px;" href="#">微信后台管理系统</a></div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -77,7 +77,7 @@
 								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="#"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
+								<a href="/wechatdemo/LevelServlet"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="#"><i class="glyphicon glyphicon-lock"></i> 活动分析</a> 
