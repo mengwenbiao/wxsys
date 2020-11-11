@@ -93,10 +93,10 @@ table tbody td:nth-child(even) {
 								<a href="#"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
+								<a href="/wechatdemo/FlagServlet "style="color:red;"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="#"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
+								<a href="/wechatdemo/LevelServlet"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="#"><i class="glyphicon glyphicon-lock"></i> 活动分析</a> 
