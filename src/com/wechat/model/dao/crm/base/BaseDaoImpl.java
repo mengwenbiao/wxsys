@@ -1,9 +1,10 @@
 package com.wechat.model.dao.crm.base;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -71,5 +72,25 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 		}
 	}
 	
+	@Override
+	public int getTotal(String sql) {
+		Connection conn=null;
+		int total=0;
+		try {
+			conn=JdbcUtil.getConnection();
+		
+			Statement s = conn.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+			while (rs.next()) {
+				total = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("查询列表出现问题！！");
+		}
+//		System.out.println(total+"------");
+		return total;
+	}
+
 
 }

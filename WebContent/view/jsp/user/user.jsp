@@ -1,6 +1,6 @@
-<%@page pageEncoding="UTF-8"%>
-<%-- <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
- --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.util.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
@@ -9,9 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/main.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/view/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/view/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/view/css/main.css">
 	<style>
 	.tree li {
         list-style-type: none;
@@ -23,6 +23,7 @@
   </head>
 
   <body>
+  <% String username=(String)session.getAttribute("username"); %>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -33,13 +34,13 @@
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i>${loginUser.username} <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i><%=username %><span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
 						<li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 						<li class="divider"></li>
-						<li><a href="DispatcherServlet?method=loginPage"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+						<li><a href="../login.jsp"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
 					  </ul>
 			    </div>
 			</li>
@@ -65,28 +66,24 @@
 						<a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
 					<li class="list-group-item">
-						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">5</span></span> 
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 客服管理 <span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
+								<a href="#" style="color:red;"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="role.html"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
+								<a href="#"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
+								<a href="#"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
+								<a href="#"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="permission.html"><i class="glyphicon glyphicon-lock"></i> 活动分析</a> 
+								<a href="#"><i class="glyphicon glyphicon-lock"></i> 活动分析</a> 
 							</li>
 						</ul>
-					</li>
-					<!-- 此处为预留接口 -->
-					
-					
 				</ul>
 			</div>
         </div>
@@ -100,13 +97,11 @@
   <div class="form-group has-feedback">
     <div class="input-group">
       <div class="input-group-addon">查询条件</div>
-      <input id="queryText" class="form-control has-success" type="text" placeholder="请输入查询条件">
+      <input id="queryText" name="queryText" class="form-control has-success" type="text" placeholder="请输入查询条件">
     </div>
   </div>
-  <button id="queryBtn" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+  <button id="queryBtn" type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
 </form>
-<button type="button" class="btn btn-danger" onclick="deleteUsers()" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-<button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='/DispatcherServlet?method=userAddPage'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
@@ -116,21 +111,42 @@
                 <tr >
                   <th width="30">#</th>
 				  <th width="30"><input type="checkbox" id="allSelBox"></th>
-                  <th>账号</th>
-                  <th>名称</th>
-                  <th>邮箱地址</th>
-                  <th width="100">操作</th>
+                  <th>openID</th>
+                  <th>昵称</th>
+                  <th>性别</th>
+                  <th>城市</th>
+                  <th>国家</th>
+                  <th>省份</th>
+                  <th>关注时间</th>
                 </tr>
               </thead>
-	              <tbody id="userData">
-	              
+	              <tbody id="">
+	             <%--  <%	              
+	              System.out.println("客户端："+request.getAttribute("users")); %> --%>
+	             	<c:forEach items="${users}" var="user" varStatus="st">
+	                	  <tr>
+	                	  	<td>${user.id}</td>
+	                	  	<td><input type='checkbox' name='userid' value='"+user.id+"'></td>
+	                	 	<td>${user.openid}</td>
+	                	 	<td>${user.nickname}</td>
+	                	 	<td>${user.sex}</td>
+	                	 	<td>${user.city}</td>
+	                	 	<td>${user.country}</td>
+	                	 	<td>${user.province}</td>
+	                	 	<td>${user.subscribe_time}</td>
+	                	  </tr>	
+	               </c:forEach>                	 
 	              </tbody>
 			  <tfoot>
 			     <tr >
-				     <td colspan="6" align="center">
-						<ul class="pagination">
-							
-						</ul>
+				     <td colspan="9" align="center">
+						
+						<a href="/wechatdemo/UserListServlet?start=0">首  页</a>
+							<a href='/wechatdemo/UserListServlet?start=${pre}'>上一页</a>
+							<a href='#'> ${page}/${pages}</a>
+							<a href='/wechatdemo/UserListServlet?start=${next}'>下一页</a>
+							<a href='/wechatdemo/UserListServlet?start=${last}'>末页</a>
+					
 					 </td>
 				 </tr>
 			  </tfoot>
@@ -143,10 +159,9 @@
       </div>
     </div>
 
-    <script src="${pageContext.request.contextPath}/view/jquery/jquery-2.1.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/view/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/view/script/docs.min.js"></script>
-	<script src="${pageContext.request.contextPath}/view/layer/layer.js"></script>
- 	<script src="${pageContext.request.contextPath}/view/ui/user/user.js"></script>
-   </body>
+    <script src="../../jquery/jquery-2.1.1.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+ 	<script src="../../script/docs.min.js"></script>
+ 	<script src="../../layer/layer.js"></script>
+  </body>
 </html>
