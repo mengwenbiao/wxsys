@@ -57,8 +57,15 @@ public class ConnectionServlet extends HttpServlet{
 		String responseStr=WxDao.getResponseStr(xmlMap);
 		
 		//回送给微信服务器
-
-		resp.getWriter().print(responseStr);
+		try {
+			//提交错误信息
+			int i=1/0;
+		}catch(Exception e){
+			resp.getWriter().print("success");
+		}finally {
+			resp.getWriter().print(responseStr);
+			
+		}
 	
 		
 	}

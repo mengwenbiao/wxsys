@@ -19,6 +19,8 @@ public class ImageTemplate {
 		//拿ticket去换取二维码url
 		String qrUrl=TokenConfig.getQrCode(ticket);
 		System.out.println(qrUrl);
+		
+		
 		//下载带用户参数的二维码到本地
 		ImgUtils.downImage(qrUrl,FileUtil.file("../../img/qrcodeimg/qrcode.jpg"));
 		System.out.println("1");

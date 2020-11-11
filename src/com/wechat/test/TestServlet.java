@@ -17,9 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wechat.model.bean.Images;
-import com.wechat.model.bean.TextMessage;
-
 import com.wechat.utils.StringUtil;
 
 

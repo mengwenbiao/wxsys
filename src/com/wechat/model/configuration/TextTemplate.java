@@ -3,7 +3,6 @@ package com.wechat.model.configuration;
 import java.io.File;
 import java.util.Map;
 
-import com.wechat.bean.User;
 import com.wechat.model.bean.ImageMediaId;
 import com.wechat.model.dao.crm.RankingDao;
 import com.wechat.model.dao.crm.impl.RankingDaoImpl;
@@ -18,8 +17,8 @@ import cn.hutool.json.JSONUtil;
 
 public class TextTemplate {
 	
-	private static User user;
-	private static ImageMediaId imageID;
+	private static String usernickname;
+
 	private static String userOpenid;
 	//1 关注回复  2 自动回复  3 其他回复
 	public static String getContent(int type) {
@@ -72,15 +71,14 @@ public class TextTemplate {
 		//System.out.println(info);
 		//解析微信服务器发送过来的json请求
 		JSONObject jsonObject=JSONUtil.parseObj(info);
-		String openid=jsonObject.getStr("openid");
 		String nickname=jsonObject.getStr("nickname");
-		String city=jsonObject.getStr("city");
-		String headimgurl=jsonObject.getStr("headimgurl");
-		String subscribe_scene=jsonObject.getStr("subscribe_scene");
-		String qr_scene=jsonObject.getStr("qr_scene");
-		String qr_scene_str=jsonObject.getStr("qr_scene_str");
-		user=new User(openid,nickname,city,headimgurl,subscribe_scene);
-		System.out.println("你好1");
+//		String openid=jsonObject.getStr("openid");
+//		String city=jsonObject.getStr("city");
+//		String headimgurl=jsonObject.getStr("headimgurl");
+//		String subscribe_scene=jsonObject.getStr("subscribe_scene");
+//		String qr_scene=jsonObject.getStr("qr_scene");
+//		String qr_scene_str=jsonObject.getStr("qr_scene_str");
+		usernickname=nickname;
 		//获取客服接口，把助力消息发送给用户
 		String url=TokenConfig.getCustomerUrl();
 		String result=TextTemplate.getCustomerTemplate(nickname,xmlMap);
@@ -103,16 +101,15 @@ public class TextTemplate {
 		//System.out.println(info);
 		//解析微信服务器发送过来的json请求
 		JSONObject jsonObject=JSONUtil.parseObj(info);
-		String openid=jsonObject.getStr("openid");
-		System.out.println("openid-->:"+openid);
+//		String openid=jsonObject.getStr("openid");
+//		System.out.println("openid-->:"+openid);
 		String nickname=jsonObject.getStr("nickname");
-		String city=jsonObject.getStr("city");
-		String headimgurl=jsonObject.getStr("headimgurl");
-		String subscribe_scene=jsonObject.getStr("subscribe_scene");
-		String qr_scene=jsonObject.getStr("qr_scene");
-		String qr_scene_str=jsonObject.getStr("qr_scene_str");
-		System.out.println(headimgurl);
-		System.out.println("你好2");
+//		String city=jsonObject.getStr("city");
+//		String headimgurl=jsonObject.getStr("headimgurl");
+//		String subscribe_scene=jsonObject.getStr("subscribe_scene");
+//		String qr_scene=jsonObject.getStr("qr_scene");
+//		String qr_scene_str=jsonObject.getStr("qr_scene_str");
+//		System.out.println(headimgurl);
 		String url2=TokenConfig.getCustomerUrl();
 		String media=ImageMediaConfig.getMedia(xmlMap);
 		String result2=TextTemplate.getCustomerImageTemplate(nickname,xmlMap);
@@ -159,7 +156,7 @@ public class TextTemplate {
 				"    \"msgtype\":\"text\",\r\n" + 
 				"    \"text\":\r\n" + 
 				"    {\r\n" + 
-				"         \"content\":\""+user.getNickname()+"已为您助力/:rose/:rose/:rose"+"\"\r\n" + 
+				"         \"content\":\""+usernickname+"已为您助力/:rose/:rose/:rose"+"\"\r\n" + 
 				"    }\r\n" + 
 				"}";
 		return result;

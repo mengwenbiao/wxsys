@@ -104,13 +104,9 @@ public class WxDao {
 		//回复用户头像
 		//String result2=TextTemplate.getCustomerImageTemplate(xmlMap);
 		//HttpUtil.post(url, result2);
-		try {
-			return "success";
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			return TextTemplate.getTextTemplate(xmlMap);
-		}
+		
+		return TextTemplate.getTextTemplate(xmlMap);
+		
 	} 
 	
 

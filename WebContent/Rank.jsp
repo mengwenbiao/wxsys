@@ -13,8 +13,12 @@
     	<th>昵称</th>
    		 <th>排名</th>
   	</tr>
-	<tr></tr>
-
+  	<c:forEach items="${a}" var="rk">
+		<tr>
+			<td>${a.nickname}</td>
+			<td>count++</td>
+		</tr>
+	</c:forEach>
 
 </table>
 

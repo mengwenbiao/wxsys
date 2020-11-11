@@ -62,7 +62,7 @@ public class TestWx {
 	@Test
 	public void ssupload() {
 		///wechatdemo/WebContent/WEB-INF/classes
-		String result=TokenConfig.upload("/wechatdemo/WebContent/WEB-INF/classes/img/haibaouser.jpg", "image");
+		String result=TokenConfig.upload("../../img/haibaouser.jpg", "image");
 		System.out.println(result);
 	}
 	
