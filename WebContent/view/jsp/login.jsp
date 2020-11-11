@@ -35,7 +35,7 @@
 		<div class="container">
 			<div class="navbar-header">
 				<div>
-					<a class="navbar-brand" href="#" style="font-size: 32px;">MES-System</a>
+					<a class="navbar-brand" href="#" style="font-size: 32px;">微信后台管理系统</a>
 				</div>
 			</div>
 		</div>

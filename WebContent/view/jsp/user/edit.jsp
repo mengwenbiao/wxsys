@@ -25,7 +25,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-            <div><a class="navbar-brand" style="font-size:32px;" href="user.html">Mes_sys</a></div>
+            <div><a class="navbar-brand" style="font-size:32px;" href="user.html">后台管理</a></div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -65,10 +65,22 @@
 						<a href="${pageContext.request.contextPath}/view/jsp/main.jsp"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
 					<li class="list-group-item">
-						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">5</span></span> 
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 客服管理 <span class="badge" style="float:right">5</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
+								<a href="${pageContext.request.contextPath}/view/jsp/user.jsp" style="color:red;"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="#"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="/wechatdemo/LevelServlet"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
+							</li>
+							<li style="height:30px;">
+								<a href="#"><i class="glyphicon glyphicon-lock"></i> 活动分析</a> 
 							</li>
 						</ul>
 					</li>

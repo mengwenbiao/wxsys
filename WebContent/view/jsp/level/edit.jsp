@@ -1,5 +1,5 @@
 <%@page pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
@@ -8,10 +8,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/main.css">
-	<link re·l="stylesheet" href="${pageContext.request.contextPath}/view/css/doc.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/view/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/view/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/view/css/main.css">
+	<link re·l="stylesheet" href="${pageContext.request.contextPath }/view/css/doc.min.css">
 	<style>
 	.tree li {
         list-style-type: none;
@@ -32,13 +32,13 @@
             <li style="padding-top:8px;">
 				<div class="btn-group">
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i>${loginUser.username} <span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i>小花 <span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
 						<li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
 						<li class="divider"></li>
-						<li><a href="${APP_PATH}/logout.page"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+						<li><a href="../login.jsp"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
 					  </ul>
 			    </div>
 			</li>
@@ -61,33 +61,28 @@
 			<div class="tree">
 				<ul style="padding-left:0px;" class="list-group">
 					<li class="list-group-item tree-closed" >
-						<a href="${pageContext.request.contextPath}/view/jsp/main.jsp"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
+						<a href="/wechatdemo/view/jsp/main.jsp"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
-					<li class="list-group-item">
+					<li class="list-group-item tree-closed">
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 客服管理 <span class="badge" style="float:right">5</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="${pageContext.request.contextPath}/view/jsp/user.jsp" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
+								<a href="#"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="#"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
+								<a href="#"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="/wechatdemo/LevelServlet"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
+								<a href="${pageContext.request.contextPath}/LevelServlet" style="color:red;"><i class="glyphicon glyphicon-lock"></i> 层次关系</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="#"><i class="glyphicon glyphicon-lock"></i> 活动分析</a> 
 							</li>
 						</ul>
-					</li>
-					
-					
-					<!-- <li class="list-group-item tree-closed" >
-						<a href="param.html"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a> 
-					</li> -->
+					</li>										
 				</ul>
 			</div>
         </div>
@@ -96,26 +91,29 @@
 				  <li><a href="#">首页</a></li>
 				  <li><a href="#">数据列表</a></li>
 				  <li class="active">新增</li>
-				</ol>
+				</ol>			
 			<div class="panel panel-default">
               <div class="panel-heading">表单数据<div style="float:right;cursor:pointer;" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-question-sign"></i></div></div>
 			  <div class="panel-body">
-				<form role="form">
+			  
+			  <!-- 数据库中的数据 -->
+				<form role="form" action="${pageContext.request.contextPath}/editLevel" method="post">
 				  <div class="form-group">
-					<label for="exampleInputPassword1">登陆账号</label>
-					<input type="text" class="form-control" id="loginacct" placeholder="请输入登陆账号">
+					<label for="exampleInputPassword1">用户名</label>
+					<input type="hidden"name="id" value="${level.id}">
+					<input type="text" class="form-control" id="username" name="username" value="${level.username}" placeholder="请输入用户名">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputPassword1">用户名称</label>
-					<input type="text" class="form-control" id="username" placeholder="请输入用户名称">
+					<label for="exampleInputPassword1">用户等级</label>
+					<input type="text" class="form-control" id="rank" name="rank" value="${level.rank}" placeholder="请输入用户等级">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputEmail1">邮箱地址</label>
-					<input type="email" class="form-control" id="email" placeholder="请输入邮箱地址">
-					<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
+					<label for="exampleInputEmail1">上级姓名</label>
+					<input type="text" class="form-control" id="superd" name="superd" value="${level.superd}" placeholder="请输入用户上级">
 				  </div>
-				  <button type="button" id="insertBtn" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
-				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
+				  <!-- <input type="submit" value="添加"/> -->
+				  <button type="submit" id="insertBtn" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 修改</button>
+				  <button type="reset" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 				</form>
 			  </div>
 			</div>
@@ -148,10 +146,9 @@
 		</div>
 	  </div>
 	</div>
-    <script src="${pageContext.request.contextPath}/view/jquery/jquery-2.1.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/view/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/view/script/docs.min.js"></script>
-	<script src="${pageContext.request.contextPath}/view/layer/layer.js"></script>
-	<script src="/ui/user/add.js"></script>
+    <script src="../../jquery/jquery-2.1.1.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../script/docs.min.js"></script>
+	<script src="../../layer/layer.js"></script>
   </body>
 </html>
