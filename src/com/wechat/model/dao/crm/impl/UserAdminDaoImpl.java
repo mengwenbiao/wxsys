@@ -14,8 +14,14 @@ public class UserAdminDaoImpl extends BaseDaoImpl<UserAdmin> implements UserAdmi
 
 	@Override
 	public List<UserAdmin> query() {
-		
-		return null;
+		String sql="select * from useradmin";
+//		Object[] param= {useradmin.getId(),useradmin.getUsername(),useradmin.getPassword(),useradmin.getRole()};
+		List<UserAdmin> result=queryForList(sql,null);
+		return result;
 	}
+
+	
+
+	
 
 }

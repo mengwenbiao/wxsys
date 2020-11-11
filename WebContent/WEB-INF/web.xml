@@ -1,46 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-    id="WebApp_ID" version="2.5">
-    
-    
-  <servlet>
-       <servlet-name>RankingServlet</servlet-name>
-       <servlet-class>com.wechat.controller.RankingServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-       <servlet-name>RankingServlet</servlet-name>
-       <url-pattern>/Rank.jsp</url-pattern>
-</servlet-mapping>
-    
-  	<servlet>
-       <servlet-name>ConnectionServlet</servlet-name>
-       <servlet-class>com.wechat.controller.ConnectionServlet</servlet-class>
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<!-- 登录 -->
+	<servlet>
+		<servlet-name>LoginedServlet</servlet-name>
+		<servlet-class>com.wechat.controller.LoginedServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-       <servlet-name>ConnectionServlet</servlet-name>
-       <url-pattern>/wx</url-pattern>
+		<servlet-name>LoginedServlet</servlet-name>
+		<url-pattern>/LoginedServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>com.wechat.controller.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/LoginServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RankingServlet</servlet-name>
+		<servlet-class>com.wechat.controller.RankingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RankingServlet</servlet-name>
+		<url-pattern>/Rank.jsp</url-pattern>
 	</servlet-mapping>
 
-    <filter>
-    	<filter-name>CharacterEncodingFilter</filter-name>	
-    	<filter-class>com.wechat.filter.CharacterEncodingFilter</filter-class>
-    </filter>
+	<servlet>
+		<servlet-name>ConnectionServlet</servlet-name>
+		<servlet-class>com.wechat.controller.ConnectionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ConnectionServlet</servlet-name>
+		<url-pattern>/wx</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>com.wechat.filter.CharacterEncodingFilter</filter-class>
+	</filter>
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
 
-<!-- <servlet>
-       <servlet-name>TestServlet</servlet-name>
-       <servlet-class>com.wechat.test.TestServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-       <servlet-name>TestServlet</servlet-name>
-       <url-pattern>/wx</url-pattern>
-</servlet-mapping> -->
+	<!-- <servlet> <servlet-name>TestServlet</servlet-name> <servlet-class>com.wechat.test.TestServlet</servlet-class> 
+		</servlet> <servlet-mapping> <servlet-name>TestServlet</servlet-name> <url-pattern>/wx</url-pattern> 
+		</servlet-mapping> -->
 
 
 </web-app>

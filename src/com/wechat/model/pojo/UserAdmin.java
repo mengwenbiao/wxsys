@@ -40,6 +40,10 @@ public class UserAdmin {
 		this.password = password;
 		this.role = role;
 	}
+	@Override
+	public String toString() {
+		return "UserAdmin [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
+	}
 	
 	
 }
