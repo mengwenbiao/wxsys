@@ -73,10 +73,55 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+	
+<!-- <servlet>
+       <servlet-name>TestServlet</servlet-name>
+       <servlet-class>com.wechat.test.TestServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+       <servlet-name>TestServlet</servlet-name>
+       <url-pattern>/wx</url-pattern>
+</servlet-mapping> -->
 
-	<!-- <servlet> <servlet-name>TestServlet</servlet-name> <servlet-class>com.wechat.test.TestServlet</servlet-class> 
-		</servlet> <servlet-mapping> <servlet-name>TestServlet</servlet-name> <url-pattern>/wx</url-pattern> 
-		</servlet-mapping> -->
 
-
+	<servlet>
+		<servlet-name>deleteLevel</servlet-name>
+		<servlet-class>com.wechat.controller.crm.level.deleteLevel</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deleteLevel</servlet-name>
+		<url-pattern>/deleteLevel</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>editLevel</servlet-name>
+		<servlet-class>com.wechat.controller.crm.level.editLevel</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>editLevel</servlet-name>
+		<url-pattern>/editLevel</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>getLevel</servlet-name>
+		<servlet-class>com.wechat.controller.crm.level.getLevel</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getLevel</servlet-name>
+		<url-pattern>/getLevel</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>insertLevel</servlet-name>
+		<servlet-class>com.wechat.controller.crm.level.insertLevel</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>insertLevel</servlet-name>
+		<url-pattern>/insertLevel</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>LevelServlet</servlet-name>
+		<servlet-class>com.wechat.controller.crm.level.LevelServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LevelServlet</servlet-name>
+		<url-pattern>/LevelServlet</url-pattern>
+	</servlet-mapping>
 </web-app>
