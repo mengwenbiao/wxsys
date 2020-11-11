@@ -8,10 +8,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-	<link rel="stylesheet" href="${APP_PATH}/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${APP_PATH}/css/main.css">
-	<link re·l="stylesheet" href="${APP_PATH}/css/doc.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/font-awesome.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/view/css/main.css">
+	<link re·l="stylesheet" href="${pageContext.request.contextPath}/view/css/doc.min.css">
 	<style>
 	.tree li {
         list-style-type: none;
@@ -62,10 +62,10 @@
 			<div class="tree">
 				<ul style="padding-left:0px;" class="list-group">
 					<li class="list-group-item tree-closed" >
-						<a href="main.html"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
+						<a href="${pageContext.request.contextPath}/view/jsp/main.jsp"><i class="glyphicon glyphicon-dashboard"></i> 控制面板</a> 
 					</li>
 					<li class="list-group-item">
-						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span> 
+						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">5</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
 								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
@@ -74,9 +74,6 @@
 					</li>
 					
 					
-					<li class="list-group-item tree-closed" >
-						<a href="param.html"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a> 
-					</li>
 				</ul>
 			</div>
         </div>
@@ -138,10 +135,10 @@
 		</div>
 	  </div>
 	</div>
-    <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
-    <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${APP_PATH}/script/docs.min.js"></script>
-	<script src="${APP_PATH}/layer/layer.js"></script>
-	<script src="${APP_PATH}/ui/edit.js"></script>
+    <script src="${pageContext.request.contextPath}/view/jquery/jquery-2.1.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/view/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/view/script/docs.min.js"></script>
+	<script src="${pageContext.request.contextPath}/view/layer/layer.js"></script>
+	<script src="${pageContext.request.contextPath}/view/ui/edit.js"></script>
   </body>
 </html>

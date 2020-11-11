@@ -1,5 +1,4 @@
 <%@page pageEncoding="UTF-8"%>
-
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
@@ -8,10 +7,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-	<link rel="stylesheet" href="${APP_PATH}/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${APP_PATH}/css/main.css">
-	<link re·l="stylesheet" href="${APP_PATH}/css/doc.min.css">
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/css/main.css">
+	<link re·l="stylesheet" href="/css/doc.min.css">
 	<style>
 	.tree li {
         list-style-type: none;
@@ -19,9 +18,7 @@
 	}
 	</style>
   </head>
-
   <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -67,14 +64,14 @@
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 权限管理 <span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户维护</a> 
+								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i>角色维护</a> 
 							</li>
 						</ul>
 					</li>
 					
 					
 					<li class="list-group-item tree-closed" >
-						<a href="param.html"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a> 
+						<a href="param.html"><i class="glyphicon glyphicon-list-alt"></i>角色添加</a> 
 					</li>
 				</ul>
 			</div>
@@ -82,7 +79,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<ol class="breadcrumb">
 				  <li><a href="#">首页</a></li>
-				  <li><a href="#">数据列表</a></li>
+				  <li><a href="#">角色管理</a></li>
 				  <li class="active">新增</li>
 				</ol>
 			<div class="panel panel-default">
@@ -90,19 +87,18 @@
 			  <div class="panel-body">
 				<form role="form">
 				  <div class="form-group">
-					<label for="exampleInputPassword1">登陆账号</label>
-					<input type="text" class="form-control" id="loginacct" placeholder="请输入登陆账号">
+					<label for="exampleInputPassword1">角色名称</label>
+					<input name="roleName" type="text" class="form-control" id="roleName" placeholder="角色名称">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputPassword1">用户名称</label>
-					<input type="text" class="form-control" id="username" placeholder="请输入用户名称">
+					<label for="exampleInputPassword1">角色描述</label>
+					<input name="roleDesc" type="text" class="form-control" id="roleDesc" placeholder="角色描述">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputEmail1">邮箱地址</label>
-					<input type="email" class="form-control" id="email" placeholder="请输入邮箱地址">
-					<p class="help-block label label-warning">请输入合法的邮箱地址, 格式为： xxxx@xxxx.com</p>
+					<label for="exampleInputPassword1">角色备注</label>
+					<input name="roleRemark" type="text" class="form-control" id="roleRemark" placeholder="角色备注">
 				  </div>
-				  <button type="button" id="insertBtn" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+				  <button type="button" id="addRoleBtn" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>
 				  <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-refresh"></i> 重置</button>
 				</form>
 			  </div>
@@ -136,10 +132,10 @@
 		</div>
 	  </div>
 	</div>
-    <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
-    <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${APP_PATH}/script/docs.min.js"></script>
-	<script src="${APP_PATH}/layer/layer.js"></script>
-	<script src="/ui/user/add.js"></script>
+    <script src="/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/script/docs.min.js"></script>
+	<script src="/layer/layer.js"></script>
+	<script src="/ui/role/add.js"></script>
   </body>
 </html>
