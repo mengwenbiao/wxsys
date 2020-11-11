@@ -12,11 +12,11 @@ public interface LevelDao{
 //	public List<level> queryUserByTags(String tag);
 //	public List<level> queryUserByLevel(String level);
 	public int getTotal() ;
-	public void add(level user);
-	public void update(level user);
-	public void delete(int id);
-	public level get(int id);
+	public void addLevel(level user);
+	public void updateLevel(level user);
+	public void deleteLevel(int id);
+	public level getLevel(int id);
 	public List<level> list();
-	public List<level> list(int start, int count);
-	public List<level> likeQueryList(String name,int start, int count);
+	public List<level> listLevel(int start, int count);
+	public List<level> likeQueryListLevel(String name,int start, int count);
 }

@@ -19,13 +19,12 @@ public class editLevel extends HttpServlet {
 		String username = request.getParameter("username");
 		int rank = Integer.parseInt(request.getParameter("rank"));
 		String superd = request.getParameter("superd");
-		// 解决乱码
-		String username2 = new String(username.getBytes("ISO-8859-1"), "UTF-8");
-		String superd2 = new String(superd.getBytes("ISO-8859-1"), "UTF-8");		
+		
+		// 解决乱码	
 		response.setContentType("text/html;charset=UTF-8");
-		level level = new level(id,username2,rank,superd2);
+		level level = new level(id,username,rank,superd);
 		LevelDaoImpl levels = new LevelDaoImpl();
-		levels.update(level);
+		levels.updateLevel(level);
 		request.getRequestDispatcher("LevelServlet").forward(request, response);
 	}
 }

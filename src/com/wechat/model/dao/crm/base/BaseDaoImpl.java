@@ -23,23 +23,23 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 		this.clazz = ReflectUtil.getSupserGenericType(getClass());//使用这个reflect工具类，返回T的类型
 	}
 	
-	//增改查
+	//增改删
 	public void dml(String sql,Object[] params) {
 		Connection conn=null;
 		try {
 			conn=JdbcUtil.getConnection();
 			//设置事务，手动提交
-			conn.setAutoCommit(false);
+			//conn.setAutoCommit(false);
 			qr.update(conn, sql, params);
 			//提交事务
-			conn.commit();
+			//conn.commit();
 		}catch(Exception e) {
-			try {
-				//回滚数据
-				conn.rollback();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+//			try {
+//				//回滚数据
+//				conn.rollback();
+//			} catch (SQLException e1) {
+//				e1.printStackTrace();
+//			}
 			e.printStackTrace();
 		}finally {
 			JdbcUtil.close(conn, null, null);

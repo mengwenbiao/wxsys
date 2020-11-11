@@ -61,12 +61,12 @@ public class LevelServlet extends HttpServlet{
 			// 不为空进行模糊查询
 			request.setAttribute("querySelect2", querySelect2);
 			request.removeAttribute("levels");
-			List<level> levels = LevelDaoImpl2.likeQueryList(querySelect2, start, count);
+			List<level> levels = LevelDaoImpl2.likeQueryListLevel(querySelect2, start, count);
 			System.out.println(levels);
 			request.setAttribute("levels", levels);
 		} else {
 			request.removeAttribute("levels");
-			List<level> levels = LevelDaoImpl2.list(start, count);
+			List<level> levels = LevelDaoImpl2.listLevel(start, count);
 			System.out.println(levels);
 			request.setAttribute("levels", levels);
 		}

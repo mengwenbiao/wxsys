@@ -17,8 +17,8 @@ public class deleteLevel extends HttpServlet{
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id=Integer.parseInt(request.getParameter("id"));
 		LevelDaoImpl LevelDaoImpl=new LevelDaoImpl();
-		level level = LevelDaoImpl.get(id);
-		LevelDaoImpl.delete(id);
+		level level = LevelDaoImpl.getLevel(id);
+		LevelDaoImpl.deleteLevel(id);
 		request.getRequestDispatcher("LevelServlet").forward(request, response);
 	}
 }
