@@ -52,7 +52,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>RankingServlet</servlet-name>
-		<url-pattern>/Rank.jsp</url-pattern>
+		<url-pattern>/Rank.html</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
