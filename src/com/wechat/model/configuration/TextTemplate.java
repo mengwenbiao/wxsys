@@ -9,6 +9,7 @@ import com.wechat.model.dao.crm.RankingDao;
 import com.wechat.model.dao.crm.impl.FlagsDaoImpl;
 import com.wechat.model.dao.crm.impl.RankingDaoImpl;
 import com.wechat.model.pojo.Flags;
+import com.wechat.model.pojo.Media;
 import com.wechat.model.pojo.Ranking;
 import com.wechat.utils.ImgUtils;
 
@@ -17,7 +18,7 @@ import java.util.Map;
 
 import com.wechat.model.bean.level;
 import com.wechat.model.dao.crm.impl.LevelDaoImpl;
-
+import com.wechat.model.dao.crm.impl.MediaDaoImpl;
 import com.wechat.utils.StringUtil;
 
 import Decoder.BASE64Encoder;
@@ -71,6 +72,8 @@ public class TextTemplate {
 		//获得上级的昵称和openid
 		String superNickname=json1.getStr("nickname");
 		String superOpenid = json1.getStr("openid");
+		Ranking rk=new Ranking(toUserId,superNickname);
+		new RankingDaoImpl().addRanking(rk);
 		System.out.println("上级用户名："+superNickname+",superOpenid:"+superOpenid);
 		//获取当前用户信息
 		String  info=TokenConfig.getUserInfo(userOpenId);//json文件格式
@@ -122,11 +125,37 @@ public class TextTemplate {
 		HttpUtil.post(url, rankUrl);
 		
 		//发送海报给关注公众号的用户
-		String media=ImageMediaConfig.getMedia(xmlMap);
+		String media=null;
+		List<Media> ms=new MediaDaoImpl().queryMediaById();
+		//健壮性判断
+		for(Media md:ms) {
+			if(userOpenId.equals(md.getOpenid())) {
+				//临时素材库只能在微信服务器保存3天，则要判断media是否失效
+				//现在的时间是
+				long nowTime=System.currentTimeMillis();
+				//与上传的时间进行比较，如果超过3天就重新上传海报生成mediaid，如果没有失效，就调用数据库的mediaid
+				long createtime=md.getCreatetime()+259200000;
+				if(nowTime-createtime>=0) {
+					media=md.getMediaid();
+					break;
+				}else {
+					//从新生成
+					media=ImageMediaConfig.getMedia(xmlMap);
+					break;
+				}
+			}else {
+				media=ImageMediaConfig.getMedia(xmlMap);
+				break;
+			}
+		}
 		String result2=TextTemplate.getCustomerImageTemplate(nickname,xmlMap);
+		String template=getHaiBao(media,xmlMap);
+		//发送欢迎关注
 		HttpUtil.post(url, result2);
-		String template=getTemplate(media,xmlMap);
-		return template;
+		//发送海报
+		HttpUtil.post(url, template);
+		return "success";
+	
 	}
 	//不带参数公众号
 	public static String getEventWithOutParamsTemplate(Map<String, String> xmlMap) {
@@ -161,25 +190,34 @@ public class TextTemplate {
 		String url2=TokenConfig.getCustomerUrl();
 		String media=ImageMediaConfig.getMedia(xmlMap);
 		String result2=TextTemplate.getCustomerImageTemplate(nickname,xmlMap);
-		HttpUtil.post(url2, result2);
-		String template=getTemplate(media,xmlMap);
-		return template;
+		String template=getHaiBao(media,xmlMap);
+		try {
+			int i=1/0;
+		}catch(Exception e) {
+			return "success";
+		}finally {
+			//回复欢迎关注信息
+			HttpUtil.post(url2, result2);
+			//回复海报
+			HttpUtil.post(url2, template);
+		}
+		return "success";
 	}
 	
-	//关注回复海报
-	public static String getTemplate(String media,Map<String, String> xmlMap) {
-		String template="<xml>\r\n" + 
-				"		  <ToUserName><![CDATA["+xmlMap.get("FromUserName")+"]]></ToUserName>\r\n" + 
-				"		  <FromUserName><![CDATA["+xmlMap.get("ToUserName")+"]]></FromUserName>\r\n" + 
-				"		  <CreateTime>"+StringUtil.getWxCreateTime()+"</CreateTime>\r\n" + 
-				"		  <MsgType><![CDATA[image]]></MsgType>\r\n" + 
-				"		  <Image>\r\n" + 
-				"		    <MediaId><![CDATA["+media+"]]></MediaId>\r\n" + 
-				"		  </Image>\r\n" + 
-				"		</xml>";
-		return template;
+	//关注客服发送海报
+	public static String getHaiBao(String media,Map<String, String> xmlMap) {
+		String result="{\r\n" + 
+				"    \"touser\":\""+xmlMap.get("FromUserName")+"\",\r\n" + 
+				"    \"msgtype\":\"image\",\r\n" + 
+				"    \"image\":\r\n" + 
+				"    {\r\n" + 
+				"      \"media_id\":\""+media+"\"\r\n" + 
+				"    }\r\n" + 
+				"}";
 		
+		return result;
 	}
+	
 
 	
 	//直接取出参数 
@@ -263,7 +301,7 @@ public class TextTemplate {
 			//查询数据库内的信息
 			List<Flags> us=users.query();
  			for (int i = 0; i < us.size(); i++) {
- 				
+ 				//
  				Flags flags = us.get(i);
 //				System.out.println(i+"个:"+flags.toString());
 				//获取用户名
@@ -303,7 +341,7 @@ public class TextTemplate {
 			
 //			System.out.println("遍历数据库flags表："+us);
 			String mediaId=ImageMediaConfig.getMedia(xmlMap);
-			String result=getTemplate(mediaId,xmlMap);
+			String result=getHaiBao(mediaId,xmlMap);
 			return result;
 		}else if(key.equals("a002")) {
 			//new出这个实现类
@@ -345,7 +383,7 @@ public class TextTemplate {
 			}
 // 			System.out.println("遍历数据库flags表："+us);
 			String mediaId=ImageMediaConfig.getMedia2(xmlMap);
-			String result=getTemplate(mediaId,xmlMap);
+			String result=getHaiBao(mediaId,xmlMap);
 			return result;
 		}
 		else if(key.equals("a003")) {
@@ -386,8 +424,12 @@ public class TextTemplate {
 				}*/
 			}
 			String mediaId=ImageMediaConfig.getMedia3(xmlMap);
-			String result=getTemplate(mediaId,xmlMap);
+			String result=getHaiBao(mediaId,xmlMap);
 			return result;
+		}else if(key.equals("a004")) {
+			String openid=xmlMap.get("FromUserName");
+			SendTemplateMessage.sendTemplate(openid);
+			return "";
 		}
 		return null;
 	}

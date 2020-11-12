@@ -1,35 +1,33 @@
 package com.wechat.controller.crm.image;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.wechat.model.dao.crm.ImageDao;
-import com.wechat.model.dao.crm.impl.ImageDaoImpl;
+import com.wechat.model.bean.Image;
 
 /**
- * 获取对应id， 调用相应的delete方法
- * 删除数据的功能
+ * 更新图片的  、更新主题的功能
  * @author Gwin_liu
  *
  */
-@WebServlet("/DeleteImageServlet")
-public class DeleteImageServlet extends HttpServlet {
+@WebServlet("/UpdateImageServlet")
+public class UpdateImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//获取id
-	    int id = Integer.parseInt(request.getParameter("id")); 
-		ImageDao service = new ImageDaoImpl();
-		service.delete(id);
-		request.getRequestDispatcher("/ImageListServlet").forward(request,response);
+		int id = Integer.parseInt(request.getParameter("id"));
+		//获取数据库值
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

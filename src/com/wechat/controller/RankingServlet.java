@@ -19,9 +19,11 @@ public class RankingServlet extends HttpServlet{
 	
 		RankingDao rank=new RankingDaoImpl();
 		List<Ranking> a=rank.queryRank();
+		int i=1;
 		for(Ranking b:a) {
-			System.out.println("排名:"+b);
+			response.getWriter().println(b.getNickname()+"--------------->助力排行榜排名："+i+++"</br>");
 		}
+	
 		
 	}
 

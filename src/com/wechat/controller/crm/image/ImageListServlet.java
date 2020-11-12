@@ -16,7 +16,10 @@ import com.wechat.model.dao.crm.impl.ImageDaoImpl;
 import com.wechat.model.pojo.Flags;
 
 /**
- * Servlet implementation class ImageListServlet
+ *  这个类是图片的显示的主页面，在这里进行了分页  转发到image.jsp
+ *  包括了查询所有数据   模糊查询数据功能
+ * @author Gwin_liu
+ *
  */
 @WebServlet("/ImageListServlet")
 public class ImageListServlet extends HttpServlet {
