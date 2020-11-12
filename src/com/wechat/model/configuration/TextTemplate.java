@@ -301,7 +301,7 @@ public class TextTemplate {
 			//查询数据库内的信息
 			List<Flags> us=users.query();
  			for (int i = 0; i < us.size(); i++) {
- 				
+ 				//
  				Flags flags = us.get(i);
 //				System.out.println(i+"个:"+flags.toString());
 				//获取用户名
