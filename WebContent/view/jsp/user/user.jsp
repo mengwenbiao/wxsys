@@ -111,18 +111,16 @@
                 <tr >
                   <th width="30">#</th>
 				  <th width="30"><input type="checkbox" id="allSelBox"></th>
-                  <th>openID</th>
-                  <th>昵称</th>
-                  <th>性别</th>
-                  <th>城市</th>
-                  <th>国家</th>
-                  <th>省份</th>
-                  <th>关注时间</th>
+                  <th width="180">openID</th>
+                  <th width="180">昵称</th>
+                  <th width="100">性别</th>
+                  <th width="100">城市</th>
+                  <th width="100">国家</th>
+                  <th width="100">省份</th>
+                  <th width="300">关注时间</th>
                 </tr>
               </thead>
 	              <tbody id="">
-	             <%--  <%	              
-	              System.out.println("客户端："+request.getAttribute("users")); %> --%>
 	             	<c:forEach items="${users}" var="user" varStatus="st">
 	                	  <tr>
 	                	  	<td>${user.id}</td>

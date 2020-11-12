@@ -17,6 +17,7 @@ public class TestSql {
 		Object[] params = new Object[] {1,5};
 		List<User> users = userDao1.queryForList(sql, params);
 		System.out.println(users);
-		
 	}
+	
+	
 }
