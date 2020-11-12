@@ -70,7 +70,7 @@
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 客服管理 <span class="badge" style="float:right">5</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="#"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
+								<a href="${pageContext.request.contextPath}/UserListServlet"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="#"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 

@@ -87,7 +87,7 @@ table tbody td:nth-child(even) {
 								class="badge" style="float: right">5</span></span>
 							<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="${pageContext.request.contextPath}/view/jsp/user/user.jsp" ><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
+								<a href="${pageContext.request.contextPath}/UserListServlet" ><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="#"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
