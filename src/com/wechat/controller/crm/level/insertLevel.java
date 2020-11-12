@@ -16,16 +16,16 @@ public class insertLevel extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String username=request.getParameter("username");
-		int rank=Integer.parseInt(request.getParameter("rank"));
-		String superd=request.getParameter("superd");
+		String nickname=request.getParameter("nickname");
+		String openid=request.getParameter("openid");
+		String superNickname=request.getParameter("superNickname");
+		String superOpenid=request.getParameter("superOpenid");
+		int rank=Integer.parseInt(request.getParameter("ranking"));
 		//解决乱码
 		response.setContentType("text/html;charset=UTF-8");
 		
-		level level=new level();
-		level.setUsername(username);
-		level.setRank(rank);
-		level.setSuperd(superd);
+		level level=new level(null,nickname,openid,superNickname,superOpenid,rank);
+		
 		LevelDaoImpl levels=new LevelDaoImpl();
 		levels.addLevel(level);
 		request.getRequestDispatcher("LevelServlet").forward(request, response);

@@ -29,17 +29,17 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 		try {
 			conn=JdbcUtil.getConnection();
 			//设置事务，手动提交
-			//conn.setAutoCommit(false);
+			conn.setAutoCommit(false);
 			qr.update(conn, sql, params);
 			//提交事务
-			//conn.commit();
+			conn.commit();
 		}catch(Exception e) {
-//			try {
-//				//回滚数据
-//				conn.rollback();
-//			} catch (SQLException e1) {
-//				e1.printStackTrace();
-//			}
+			try {
+				//回滚数据
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}finally {
 			JdbcUtil.close(conn, null, null);

@@ -2,16 +2,20 @@ package com.wechat.model.bean;
 
 public class level {
 	private Integer id;
-	private String username;
-	private int rank;
-	private String superd;
+	private String nickname;
+	private String openid;
+	private String superNickname;
+	private String superOpenid;
+	private int ranking;
 	public level() {
 	}
-	public level(Integer id, String username, int rank, String superd) {
+	public level(Integer id, String nickname, String openid, String superNickname, String superOpenid, int ranking) {
 		this.id = id;
-		this.username = username;
-		this.rank = rank;
-		this.superd = superd;
+		this.nickname = nickname;
+		this.openid = openid;
+		this.superNickname = superNickname;
+		this.superOpenid = superOpenid;
+		this.ranking = ranking;
 	}
 	public Integer getId() {
 		return id;
@@ -19,29 +23,40 @@ public class level {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getUsername() {
-		return username;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
-	public int getRank() {
-		return rank;
+	public String getOpenid() {
+		return openid;
 	}
-	public void setRank(int rank) {
-		this.rank = rank;
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
-	public String getSuperd() {
-		return superd;
+	public String getSuperNickname() {
+		return superNickname;
 	}
-	public void setSuperd(String superd) {
-		this.superd = superd;
+	public void setSuperNickname(String superNickname) {
+		this.superNickname = superNickname;
+	}
+	public String getSuperOpenid() {
+		return superOpenid;
+	}
+	public void setSuperOpenid(String superOpenid) {
+		this.superOpenid = superOpenid;
+	}
+	public int getRanking() {
+		return ranking;
+	}
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
 	}
 	@Override
 	public String toString() {
-		return "level [id=" + id + ", username=" + username + ", rank=" + rank + ", superd=" + superd + "]";
-	}
-	
-	
-	
+		return "level [id=" + id + ", nickname=" + nickname + ", openid=" + openid + ", superNickname=" + superNickname
+				+ ", superOpenid=" + superOpenid + ", ranking=" + ranking + "]";
+	}	
+			
 }

@@ -99,17 +99,25 @@
 			  <!-- 数据库中的数据 -->
 				<form role="form" action="${pageContext.request.contextPath}/editLevel" method="post">
 				  <div class="form-group">
-					<label for="exampleInputPassword1">用户名</label>
+					<label for="exampleInputPassword1">昵称</label>
 					<input type="hidden"name="id" value="${level.id}">
-					<input type="text" class="form-control" id="username" name="username" value="${level.username}" placeholder="请输入用户名">
+					<input type="text" class="form-control" id="nickname" name="nickname" value="${level.nickname}" placeholder="请输入昵称">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputPassword1">用户等级</label>
-					<input type="text" class="form-control" id="rank" name="rank" value="${level.rank}" placeholder="请输入用户等级">
+					<label for="exampleInputPassword1">openid</label>
+					<input type="text" class="form-control" id="openid" name="openid" value="${level.openid}" placeholder="请输入openid">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputEmail1">上级姓名</label>
-					<input type="text" class="form-control" id="superd" name="superd" value="${level.superd}" placeholder="请输入用户上级">
+					<label for="exampleInputEmail1">上级昵称</label>
+					<input type="text" class="form-control" id="superNickname" name="superNickname" value="${level.superNickname}" placeholder="请输入上级昵称">
+				  </div>
+				  <div class="form-group">
+					<label for="exampleInputEmail1">上级openid</label>
+					<input type="text" class="form-control" id="superOpenid" name="superOpenid" value="${level.superOpenid}" placeholder="请输入上级openid">
+				  </div>
+				  <div class="form-group">
+					<label for="exampleInputEmail1">等级</label>
+					<input type="text" class="form-control" id="ranking" name="ranking" value="${level.ranking}" placeholder="请输入等级">
 				  </div>
 				  <!-- <input type="submit" value="添加"/> -->
 				  <button type="submit" id="insertBtn" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 修改</button>

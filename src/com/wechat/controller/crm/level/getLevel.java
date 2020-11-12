@@ -22,11 +22,12 @@ public class getLevel extends HttpServlet {
 		level level = levels.getLevel(id);
 		level levelx=new level();
 		levelx.setId(id);
-		System.out.println("username:"+level.getUsername());
-		levelx.setUsername(level.getUsername());
-		
-		levelx.setRank(level.getRank());
-		levelx.setSuperd(level.getSuperd());
+		System.out.println("当前用户nickname:"+level.getNickname());
+		levelx.setNickname(level.getNickname());
+		levelx.setOpenid(level.getOpenid());
+		levelx.setSuperNickname(level.getSuperNickname());
+		levelx.setSuperOpenid(level.getSuperOpenid());
+		levelx.setRanking(level.getRanking());
 	 	
 	 	request.setAttribute("level",levelx);
 		request.getRequestDispatcher("view/jsp/level/edit.jsp").forward(request, response);

@@ -16,13 +16,15 @@ public class editLevel extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		String username = request.getParameter("username");
-		int rank = Integer.parseInt(request.getParameter("rank"));
-		String superd = request.getParameter("superd");
+		String nickname=request.getParameter("nickname");
+		String openid=request.getParameter("openid");
+		String superNickname=request.getParameter("superNickname");
+		String superOpenid=request.getParameter("superOpenid");
+		int rank=Integer.parseInt(request.getParameter("ranking"));
 		
 		// 解决乱码	
 		response.setContentType("text/html;charset=UTF-8");
-		level level = new level(id,username,rank,superd);
+		level level = new level(id,nickname,openid,superNickname,superOpenid,rank);
 		LevelDaoImpl levels = new LevelDaoImpl();
 		levels.updateLevel(level);
 		request.getRequestDispatcher("LevelServlet").forward(request, response);

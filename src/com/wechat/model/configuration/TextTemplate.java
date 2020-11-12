@@ -11,9 +11,16 @@ import com.wechat.model.dao.crm.impl.RankingDaoImpl;
 import com.wechat.model.pojo.Flags;
 import com.wechat.model.pojo.Ranking;
 import com.wechat.utils.ImgUtils;
+
+import java.util.List;
+import java.util.Map;
+
+import com.wechat.model.bean.level;
+import com.wechat.model.dao.crm.impl.LevelDaoImpl;
+
 import com.wechat.utils.StringUtil;
 
-import cn.hutool.core.io.FileUtil;
+import Decoder.BASE64Encoder;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -57,39 +64,54 @@ public class TextTemplate {
 		//qrscene_o8ft36DgD0lV9CoQQUjNNqh0rfnU
 		String toUserId=toUser.substring(8);
 		userOpenid=toUserId;
-		System.out.println("扫了谁的的二维码的openid："+toUserId);
-		//获取二维码中带的用户信息
+		
+		//获取二维码中带的openid的用户信息：上级信息
 		String  users=TokenConfig.getUserInfo(toUserId);
 		JSONObject json1=JSONUtil.parseObj(users);
-		//获得二维码带信息的用户昵称
-		String nick=json1.getStr("nickname");
-		//
-		System.out.println("二维码带参数："+nick);
-		//存入数据库
-		Ranking rk=new Ranking(toUserId,nick);
-		RankingDao rank=new RankingDaoImpl();
-		rank.addRanking(rk);
-		
-		System.out.println(userOpenId);
+		//获得上级的昵称和openid
+		String superNickname=json1.getStr("nickname");
+		//表情转换
+		BASE64Encoder encoder = new BASE64Encoder();
+		String encodeChange = encoder.encode(superNickname.getBytes());
+		String superOpenid = json1.getStr("openid");
+		System.out.println("上级用户名："+encodeChange+",superOpenid:"+superOpenid);
+		System.out.println("原始上级用户名："+superNickname+",superOpenid:"+superOpenid);
+		//获取当前用户信息
 		String  info=TokenConfig.getUserInfo(userOpenId);//json文件格式
-		//System.out.println(info);
-		//解析微信服务器发送过来的json请求
+		//获取当前用户的昵称和openid
 		JSONObject jsonObject=JSONUtil.parseObj(info);
 		String nickname=jsonObject.getStr("nickname");
-//		String openid=jsonObject.getStr("openid");
-//		String city=jsonObject.getStr("city");
-//		String headimgurl=jsonObject.getStr("headimgurl");
-//		String subscribe_scene=jsonObject.getStr("subscribe_scene");
-//		String qr_scene=jsonObject.getStr("qr_scene");
-//		String qr_scene_str=jsonObject.getStr("qr_scene_str");
-		usernickname=nickname;
+		//表情转换
+		String openid=jsonObject.getStr("openid");
+		usernickname=nickname;		
+		System.out.println("当前用户名："+nickname+",openid:"+openid);
+		int rank=1;
+		//判断数据库中是否已经有此openid
+		LevelDaoImpl ldi=new LevelDaoImpl();
+		List<level> listLevel = ldi.listLevel(0, ldi.getTotal());
+		//定义一个标记，为true，默认数据库中无此数据
+		boolean exist=true;
+		for (int i = 0; i <listLevel.size(); i++) {
+			String openidSelect = listLevel.get(i).getOpenid();
+			//当有此数据时，设置exist=false
+			if(openidSelect.equals(openid)) {
+				exist=false;
+			}
+		}
+		if(exist) {
+			//当没有此用户时存入数据库
+			level le=new level(null,nickname,openid,superNickname,superOpenid,rank);				
+			ldi.addLevel(le);
+		}						
 		//获取客服接口，把助力消息发送给用户
 		String url=TokenConfig.getCustomerUrl();
 		String result=TextTemplate.getCustomerTemplate(nickname,xmlMap);
 		HttpUtil.post(url, result);
+		
 		//查看助力榜单
 		String rankUrl=TextTemplate.getRanking();
 		HttpUtil.post(url, rankUrl);
+		
 		//发送海报给关注公众号的用户
 		String media=ImageMediaConfig.getMedia(xmlMap);
 		String result2=TextTemplate.getCustomerImageTemplate(nickname,xmlMap);

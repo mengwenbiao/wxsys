@@ -99,16 +99,24 @@
 			  <!-- 数据库中的数据 -->
 				<form role="form" action="${pageContext.request.contextPath}/insertLevel" method="post">
 				  <div class="form-group">
-					<label for="exampleInputPassword1">用户名称</label>
-					<input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名">
+					<label for="exampleInputPassword1">用户昵称</label>
+					<input type="text" class="form-control" id="nickname" name="nickname" placeholder="请输入昵称">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputPassword1">用户等级</label>
-					<input type="text" class="form-control" id="rank" name="rank" placeholder="请输入用户等级">
+					<label for="exampleInputPassword1">用户openid</label>
+					<input type="text" class="form-control" id="openid" name="openid" placeholder="请输入openid">
 				  </div>
 				  <div class="form-group">
-					<label for="exampleInputEmail1">用户上级</label>
-					<input type="text" class="form-control" id="superd" name="superd" placeholder="请输入用户上级">
+					<label for="exampleInputEmail1">上级昵称</label>
+					<input type="text" class="form-control" id="superNickname" name="superNickname" placeholder="请输入上级昵称">
+				  </div>
+				  <div class="form-group">
+					<label for="exampleInputEmail1">上级openid</label>
+					<input type="text" class="form-control" id="superOpenid" name="superOpenid" placeholder="请输入上级openid">
+				  </div>
+				  <div class="form-group">
+					<label for="exampleInputEmail1">等级</label>
+					<input type="text" class="form-control" id="ranking" name="ranking" placeholder="请输入等级">
 				  </div>
 				  <!-- <input type="submit" value="添加"/> -->
 				  <button type="submit" id="insertBtn" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增</button>

@@ -121,9 +121,11 @@
                 <tr >
                   <th width="30">#</th>
 				  <th width="30"><input type="checkbox" id="allSelBox"></th>
-                  <th>用户名</th>
+                  <th>用户昵称</th>
+                  <th>用户openid</th>
+                  <th>上级昵称</th>
+                  <th>上级openid</th>
                   <th>等级</th>
-                  <th>上级姓名</th>
                   <th width="100">操作</th>
                 </tr>
               </thead>
@@ -133,9 +135,11 @@
 	                	  	<!-- id -->
 	                	  	<td>${level.id}</td>
 	                	  	<td><input type='checkbox' name='levelid' value='"+user.id+"'></td>
-	                	 	<td>${level.username}</td>
-	                	 	<td>${level.rank}</td>
-	                	 	<td>${level.superd}</td>
+	                	 	<td>${level.nickname}</td>
+	                	 	<td>${level.openid}</td>
+	                	 	<td>${level.superNickname}</td>
+	                	 	<td>${level.superOpenid}</td>
+	                	 	<td>${level.ranking}</td>
 	                	 	<td>
     							<a href="getLevel?id=${level.id}"><button type='button' class='btn btn-success btn-xs'><i class='glyphicon glyphicon-check'></i></button>
     							</a>
