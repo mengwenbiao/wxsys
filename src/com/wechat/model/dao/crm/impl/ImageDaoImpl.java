@@ -12,6 +12,7 @@ import java.util.List;
 import com.wechat.model.bean.Image;
 import com.wechat.model.dao.crm.ImageDao;
 
+
 public class ImageDaoImpl implements ImageDao {
 	/**
 	 * 统计条数
@@ -97,7 +98,6 @@ public class ImageDaoImpl implements ImageDao {
 		return images;
 	}
 
-
 	@Override
 	public void add(Image image) {
 		try {
@@ -106,17 +106,18 @@ public class ImageDaoImpl implements ImageDao {
             Connection c = DriverManager.getConnection("jdbc:mysql://39.97.237.226:3306/wxos?characterEncoding=UTF-8",
                     "root", "root");
             String sql = "insert into image values(null,?)";
-            //预编译
-            PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //预编译    这个主键自增必须要数据库的id也是自动递增的，这一点要记住
+            PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);  //主键自增
             ps.setString(1, image.getTheme()); //参数设值
  
             //执行sql语句
             ps.execute();
             //通常我们在应用中对mysql执行了insert操作后，需要获取插入记录的自增主键，这时候通常用getGeneratedKeys()方法获取主键
-            ResultSet rs = ps.getGeneratedKeys();
+            ResultSet rs = ps.getGeneratedKeys();  //结果集合主键自增
             if (rs.next()) {
+            	//
                 int id = rs.getInt(1);
-                image.setId(id);
+                image.setId(id);  //为对象设置主键id
             }
             ps.close();
             c.close();
