@@ -21,8 +21,8 @@ public class TokenConfig {
 	
 	private static String accessTokenUrl="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 
-	private static String APPID="wx0ed5ccff428a584e";
-	private static String APPSECRET="3f8ad97ab891e52dc7f8d132d570206c";
+	private static String APPID="wx236f4a5da7ad052a";
+	private static String APPSECRET="6661b8738f9399a126176a4111220325";
 	
 	//获取用户信息url
 	private static String getUserUrl="https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
