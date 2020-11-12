@@ -40,36 +40,38 @@ public class FlagsDaoImpl extends BaseDaoImpl<Flags> implements FlagsDao {
 
 	@Override
 	public List<Flags> query() {
-		String sql="select * from flags";
-		return queryForList(sql,null);
-//		List<Flags> flags = new ArrayList<Flags>();
-//		Connection conn=null;
-//		try {
-//			conn=JdbcUtil.getConnection();
-//			Statement s = conn.createStatement();
-//			String sql = "select * from flags";
-//			ResultSet rs = s.executeQuery(sql);
-//			while (rs.next()) {
-//				Flags flag = new Flags();
-//				Integer ids = rs.getInt("id");
-//				String username = rs.getString("username");
-//				int sale = rs.getInt("sale");
-//				int free = rs.getInt("free");
-//				int teamsale = rs.getInt("teamsale");
-//				flag.setId(ids);
-//				flag.setUsername(username);
-//				flag.setSale(sale);
-//				flag.setFree(free);
-//				flag.setTeamsale(teamsale);
-//				flags.add(flag);
-//			}
+	/*	String sql="select * from flags";
+		List<Flags> queryForList = queryForList(sql,null);
+		System.out.println("queryForList:"+queryForList.toString());
+		return queryForList;*/
+		List<Flags> flags = new ArrayList<Flags>();
+		Connection conn=null;
+		try {
+			conn=JdbcUtil.getConnection();
+			Statement s = conn.createStatement();
+			String sql = "select * from flags";
+			ResultSet rs = s.executeQuery(sql);
+			while (rs.next()) {
+				Flags flag = new Flags();
+				Integer ids = rs.getInt("id");
+				String username = rs.getString("username");
+				int sale = rs.getInt("sale");
+				int free = rs.getInt("free");
+				int teamsale = rs.getInt("teamsale");
+				flag.setId(ids);
+				flag.setUsername(username);
+				flag.setSale(sale);
+				flag.setFree(free);
+				flag.setTeamsale(teamsale);
+				flags.add(flag);
+			}
 //			System.out.println(flags);
-//			s.close();
-//			conn.close();
-//		}catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return flags;
+			s.close();
+			conn.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return flags;
 	}
 
 	@Override

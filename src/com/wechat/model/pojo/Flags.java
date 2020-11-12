@@ -21,20 +21,20 @@ public class Flags {
 	public int getSale() {
 		return sale;
 	}
-	public void setSale(int sale) {
-		this.sale = sale;
+	public int setSale(int sale) {
+		return this.sale = sale;
 	}
 	public int getFree() {
 		return free;
 	}
-	public void setFree(int free) {
-		this.free = free;
+	public int setFree(int free) {
+		return this.free = free;
 	}
 	public int getTeamsale() {
 		return teamsale;
 	}
-	public void setTeamsale(int teamsale) {
-		this.teamsale = teamsale;
+	public int setTeamsale(int teamsale) {
+		return this.teamsale = teamsale;
 	}
 	public Flags(int id, String username) {
 		super();

@@ -1,11 +1,14 @@
 package com.wechat.model.configuration;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import com.wechat.model.bean.ImageMediaId;
 import com.wechat.model.dao.crm.RankingDao;
+import com.wechat.model.dao.crm.impl.FlagsDaoImpl;
 import com.wechat.model.dao.crm.impl.RankingDaoImpl;
+import com.wechat.model.pojo.Flags;
 import com.wechat.model.pojo.Ranking;
 import com.wechat.utils.ImgUtils;
 import com.wechat.utils.StringUtil;
@@ -22,6 +25,7 @@ public class TextTemplate {
 	private static String userOpenid;
 	//1 关注回复  2 自动回复  3 其他回复
 	public static String getContent(int type) {
+		
 		switch(type) {
 		case 1:return "关注公众号/:rose/:rose/:rose";
 		case 2:return "感谢你的留言";
@@ -199,16 +203,144 @@ public class TextTemplate {
 	//点击菜单回复对应的海报
 	public static String getEventClick(Map<String, String> xmlMap) {
 		String key=xmlMap.get("EventKey");
+		//获取openid
+		String opid=xmlMap.get("FromUserName");
+		//获取通过openid拿到json格式的用户信息
+		String un=TokenConfig.getUserInfo(opid);
+		//解析json格式
+		JSONObject jsnickname = JSONUtil.parseObj(un);
+		//拿到nickname
+		String nickname=jsnickname.getStr("nickname");
+		System.out.println("点击菜单拿到-->"+nickname);
+		//赠送
 		if(key.equals("a001")) {
+			//new出这个实现类
+			FlagsDaoImpl users=new FlagsDaoImpl();
+			//查询数据库内的信息
+			List<Flags> us=users.query();
+ 			for (int i = 0; i < us.size(); i++) {
+ 				
+ 				Flags flags = us.get(i);
+//				System.out.println(i+"个:"+flags.toString());
+				//获取用户名
+				String username = flags.getUsername();
+//				System.out.println("u1-->"+username);
+				//判断当前数据库内获取到的username和nickname是否相等
+				if(username.equals(nickname)) {
+//					System.out.println("进了1这里！！！");
+					int sale1=flags.getSale();
+					int free1=flags.getFree();
+					int teamsale1=flags.getTeamsale();
+//					System.out.println("username:"+username);
+//					System.out.println("sale="+sale1+"freess="+free1+"teamsale="+teamsale1);
+					//若相等执行该操作
+					int sale2=sale1;
+					int sale=flags.setSale(sale2);
+					int free=flags.setFree(1);
+					int teamsale2=teamsale1;
+					int teamsale=flags.setTeamsale(teamsale2);
+					System.out.println("nickname:-->"+nickname);
+					System.out.println("username:-->"+username);
+//					System.out.println("sale="+sale+"free="+free+"teamsale="+teamsale);
+					users.update(flags);
+					break;
+				}/*else{
+					System.out.println("进入2了这里！！！");
+//					Flags flag=new Flags();
+					//将username设置为nickname
+//					flags.setUsername(nickname);
+//					flags.setSale(0);
+//					flags.setFree(1);
+//					flags.setTeamsale(0);
+//					users.add(flags);
+					break;
+				}*/
+			}
+			
+//			System.out.println("遍历数据库flags表："+us);
 			String mediaId=ImageMediaConfig.getMedia(xmlMap);
 			String result=getTemplate(mediaId,xmlMap);
 			return result;
 		}else if(key.equals("a002")) {
+			//new出这个实现类
+			FlagsDaoImpl users=new FlagsDaoImpl();
+			//查询数据库内的信息
+			List<Flags> us=users.query();
+ 			for (int i = 0; i < us.size(); i++) {
+				Flags flags = us.get(i);
+				//获取用户名
+				String username = flags.getUsername();
+//				int free=flags.getFree();
+				//判断当前数据库内获取到的username和nickname是否相等
+				if(username.equals(nickname)) {
+					//若相等执行该操作
+					int sale1=flags.getSale();
+					int free1=flags.getFree();
+					int teamsale1=flags.getTeamsale();
+//					System.out.println("username:"+username);
+//					System.out.println("sale="+sale1+"freess="+free1+"teamsale="+teamsale1);
+					//若相等执行该操作
+					int sale=flags.setSale(1);
+					int free2=free1;
+					int free=flags.setFree(free2);
+					int teamsale2=teamsale1;
+					int teamsale=flags.setTeamsale(teamsale2);
+					users.update(flags);
+					break;
+				} /*else {
+					FlagsDaoImpl users1=new FlagsDaoImpl();
+					Flags flag=new Flags();
+					//将username设置为nickname
+					flag.setUsername(nickname);
+					flag.setSale(1);
+					flag.setFree(0);
+					flag.setTeamsale(0);
+					users1.add(flag);
+					break;
+				}*/
+			}
+// 			System.out.println("遍历数据库flags表："+us);
 			String mediaId=ImageMediaConfig.getMedia2(xmlMap);
 			String result=getTemplate(mediaId,xmlMap);
 			return result;
 		}
 		else if(key.equals("a003")) {
+			//new出这个实现类
+			FlagsDaoImpl users=new FlagsDaoImpl();
+			//查询数据库内的信息
+			List<Flags> us=users.query();
+ 			for (int i = 0; i < us.size(); i++) {
+				Flags flags = us.get(i);
+				//获取用户名
+				String username = flags.getUsername();
+				//判断当前数据库内获取到的username和nickname是否相等
+				if(username.equals(nickname)) {
+					//若相等执行该操作
+					int sale1=flags.getSale();
+					int free1=flags.getFree();
+					int teamsale1=flags.getTeamsale();
+//					System.out.println("username:"+username);
+//					System.out.println("sale="+sale1+"freess="+free1+"teamsale="+teamsale1);
+					//若相等执行该操作
+					int sale2=sale1;
+					int sale=flags.setSale(sale2);
+					int free2=free1;
+					int free=flags.setFree(free2);
+					int teamsale=flags.setTeamsale(1);
+					users.update(flags);
+					break;
+				}/*else {
+					FlagsDaoImpl users1=new FlagsDaoImpl();
+					Flags flag=new Flags();
+					//将username设置为nickname
+					flag.setUsername(nickname);
+					flag.setSale(0);
+					flag.setFree(0);
+					flag.setTeamsale(1);
+					users1.add(flag);
+					break;
+				}*/
+			}
 			String mediaId=ImageMediaConfig.getMedia3(xmlMap);
 			String result=getTemplate(mediaId,xmlMap);
 			return result;

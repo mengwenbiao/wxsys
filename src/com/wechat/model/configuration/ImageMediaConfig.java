@@ -19,7 +19,7 @@ public class ImageMediaConfig {
 		System.out.println("openid-->:"+openid);
 		String nickname=jsonObject.getStr("nickname");
 		String headimgurl=jsonObject.getStr("headimgurl");
-		System.out.println(headimgurl);
+//		System.out.println(headimgurl);
 		// http://thirdwx.qlogo.cn/mmopen/VaxZ4UVDKX51iahhbnpfjJOIiaJQPBWlkpy1zS8FjugfIQpeViawgdibp4NBw4sD72y5AnrW4wlsLVgic5icWXjWNHV46qPVj7q0jT/132
 		String url=ImageTemplate.getImg1(headimgurl, openid, nickname);
 		//获取media_id
