@@ -7,7 +7,8 @@ import com.wechat.model.dao.crm.base.BaseDao;
 import com.wechat.model.pojo.User;
 
 public interface UserDao<User> extends BaseDao<User>{
-
+	public void addUser(User user);
+	
 	List<User> pageQueryData(Map<String, Object> map);
 
 	int getTotal();
@@ -15,6 +16,6 @@ public interface UserDao<User> extends BaseDao<User>{
 	List<User> vagueQueryData(String name);
 
 	User query4Login(String loginacct);
-
+	
 	
 }

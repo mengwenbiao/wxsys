@@ -9,6 +9,14 @@ import com.wechat.model.pojo.User;
 
 public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>{
 	
+	@Override
+	public void addUser(User user) {
+		String sql = "insert into user (nickname,openid,headimgurl) values(?,?,?)";
+		Object[] params=new Object[] {user.getNickname(),user.getOpenid(),user.getHeadimgurl()};
+		dml(sql, params);
+	}
+
+	
 	public void queryTest() {
 		String sql="select * from user where id=?";
 		Object[] params=new Object[] {5};
@@ -57,6 +65,7 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>{
 		return users;
 	}
 
+	
 	
 
 	
