@@ -70,12 +70,8 @@ public class TextTemplate {
 		JSONObject json1=JSONUtil.parseObj(users);
 		//获得上级的昵称和openid
 		String superNickname=json1.getStr("nickname");
-		//表情转换
-		BASE64Encoder encoder = new BASE64Encoder();
-		String encodeChange = encoder.encode(superNickname.getBytes());
 		String superOpenid = json1.getStr("openid");
-		System.out.println("上级用户名："+encodeChange+",superOpenid:"+superOpenid);
-		System.out.println("原始上级用户名："+superNickname+",superOpenid:"+superOpenid);
+		System.out.println("上级用户名："+superNickname+",superOpenid:"+superOpenid);
 		//获取当前用户信息
 		String  info=TokenConfig.getUserInfo(userOpenId);//json文件格式
 		//获取当前用户的昵称和openid
