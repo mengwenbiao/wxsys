@@ -77,21 +77,21 @@ request.getContextPath()可以返回当前页面所在的应用的名字，就�
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 客服管理<span class="badge" style="float:right">3</span></span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="#" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户管理</a> 
+								<a href="/wechatdemo/UserListServlet" style="color:red;"><i class="glyphicon glyphicon-user"></i> 用户管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="#"><i class="glyphicon glyphicon-lock"></i> 图片管理</a> 
+								<a href="${pageContext.request.contextPath}/ImageListServlet"><i class="glyphicon glyphicon-lock"></i> 图片管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="#"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
-							</li>
-							
-							<li style="height:30px;">
-								<a href="#"><i class="glyphicon glyphicon-king"></i>用户标签</a> 
+								<a href="/wechatdemo/LevelServlet"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 
 							</li>
 							
 							<li style="height:30px;">
-								<a href="#"><i class="glyphicon glyphicon-lock"></i> 活动分析</a> 
+								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-king"></i>用户标签</a> 
+							</li>
+							
+							<li style="height:30px;">
+								<a href="/wechatdemo/LevelServlet"><i class="glyphicon glyphicon-lock"></i> 活动分析</a> 
 							</li>
 						</ul>
 					</li>
