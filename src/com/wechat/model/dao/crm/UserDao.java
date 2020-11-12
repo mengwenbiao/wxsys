@@ -16,6 +16,8 @@ public interface UserDao<User> extends BaseDao<User>{
 	List<User> vagueQueryData(String name);
 
 	User query4Login(String loginacct);
+
+	List<User> queryDateCounts();
 	
 	
 }

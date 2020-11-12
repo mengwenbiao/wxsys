@@ -28,6 +28,35 @@ public class User implements Serializable{
 	private String qr_scene;
 	private String qr_scene_str;
 	
+
+	private String counts;
+	private String date;
+	
+	
+	
+	public User(String counts, String date) {
+		super();
+		this.counts = counts;
+		this.date = date;
+	}
+
+	public String getCounts() {
+		return counts;
+	}
+
+	public void setCounts(String counts) {
+		this.counts = counts;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	
 	public User() {
 		super();
 	}
@@ -209,12 +238,7 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", subscribe=" + subscribe + ", openid=" + openid + ", nickname=" + nickname
-				+ ", sex=" + sex + ", city=" + city + ", country=" + country + ", province=" + province + ", language="
-				+ language + ", headimgurl=" + headimgurl + ", subscribe_time=" + subscribe_time + ", unionid="
-				+ unionid + ", remark=" + remark + ", groupid=" + groupid + ", tagid_list=" + tagid_list
-				+ ", subscribe_scene=" + subscribe_scene + ", qr_scene=" + qr_scene + ", qr_scene_str=" + qr_scene_str
-				+ "]";
+		return "User [counts=" + counts + ", date=" + date + "]";
 	}
 	
 	

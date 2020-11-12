@@ -130,9 +130,9 @@
 						</ul>
 					</li> -->
 					<!-- 参数管理 -->
-					<!-- <li class="list-group-item tree-closed" >
-						<a href="param.html"><i class="glyphicon glyphicon-list-alt"></i> 参数管理</a> 
-					</li> -->
+					<li class="list-group-item tree-closed" >
+						<a href="/wechatdemo/UsersCountServlet"><i class="glyphicon glyphicon-list-alt"></i> 用户增长</a> 
+					</li> 
 				</ul>
 			</div>
         </div>

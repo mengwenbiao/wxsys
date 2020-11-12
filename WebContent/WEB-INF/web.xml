@@ -73,6 +73,15 @@
 		<url-pattern>/UserListServlet</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>UsersCountServlet</servlet-name>
+		<servlet-class>com.wechat.controller.UsersCountServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UsersCountServlet</servlet-name>
+		<url-pattern>/UsersCountServlet</url-pattern>
+	</servlet-mapping>
+	
 
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>

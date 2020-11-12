@@ -65,7 +65,15 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>{
 		return users;
 	}
 
-	
+	@Override
+	public List<User> queryDateCounts() {
+		String sql = "SELECT COUNT(A.date) as counts,A.date FROM\r\n" + 
+				"(select DATE_FORMAT(subscribe_time,'%y/%m/%d') as date from user)as A\r\n" + 
+				"GROUP BY A.date\r\n" + 
+				"ORDER BY A.date ";
+		List<User> counts = queryForList(sql,null);
+		return counts;
+	}
 	
 
 	
