@@ -73,7 +73,7 @@
 								<a href="${pageContext.request.contextPath}/UserListServlet"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="#"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
+								<a href="/wechatdemo/ImageListServlet"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
