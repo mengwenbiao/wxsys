@@ -19,7 +19,7 @@ public class getLevel extends HttpServlet {
 				
         int id = Integer.parseInt(request.getParameter("id"));
 		LevelDaoImpl levels=new LevelDaoImpl();
-		level level = levels.get(id);
+		level level = levels.getLevel(id);
 		level levelx=new level();
 		levelx.setId(id);
 		System.out.println("username:"+level.getUsername());

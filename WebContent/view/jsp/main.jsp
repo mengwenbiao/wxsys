@@ -71,10 +71,10 @@
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 客服管理 <span class="badge" style="float:right">5</span></span> 
 						<ul style="margin-top:10px;display:none;">
 							<li style="height:30px;">
-								<a href="/wechatdemo/UserListServlet"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
+								<a href="/wechatdemo/UserListServlet"><i class="glyphicon glyphicon-user"></i> 用户管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="/DispatcherServlet?method=rolePage"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
+								<a href="${pageContext.request.contextPath}/ImageListServlet"><i class="glyphicon glyphicon-king"></i> 图片管理</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-lock"></i> 用户标签</a> 
