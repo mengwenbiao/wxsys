@@ -98,7 +98,20 @@ public class TextTemplate {
 			//当没有此用户时存入数据库
 			level le=new level(null,nickname,openid,superNickname,superOpenid,rank);				
 			ldi.addLevel(le);
-		}						
+		}	
+		boolean est=true;
+		FlagsDaoImpl users1 = new FlagsDaoImpl();
+		// 查询数据库内的信息
+		List<Flags> us = users1.query();
+		for (int i = 0; i < us.size(); i++) {
+			Flags f = us.get(i);
+			String username = f.getUsername();
+			if (nickname.equals(username)) {
+				est = false;
+			}
+		}
+		System.out.println("est:"+est);
+		if(est) { Flags flag=new Flags(0,nickname,0,0,0); users1.add(flag); }
 		//获取客服接口，把助力消息发送给用户
 		String url=TokenConfig.getCustomerUrl();
 		String result=TextTemplate.getCustomerTemplate(nickname,xmlMap);
@@ -132,6 +145,19 @@ public class TextTemplate {
 //		String qr_scene=jsonObject.getStr("qr_scene");
 //		String qr_scene_str=jsonObject.getStr("qr_scene_str");
 //		System.out.println(headimgurl);
+		boolean est=true;
+		FlagsDaoImpl users1 = new FlagsDaoImpl();
+		// 查询数据库内的信息
+		List<Flags> us = users1.query();
+		for (int i = 0; i < us.size(); i++) {
+			Flags f = us.get(i);
+			String username = f.getUsername();
+			if (nickname.equals(username)) {
+				est = false;
+			}
+		}
+		System.out.println("est:"+est);
+		if(est) { Flags flag=new Flags(0,nickname,0,0,0); users1.add(flag); }
 		String url2=TokenConfig.getCustomerUrl();
 		String media=ImageMediaConfig.getMedia(xmlMap);
 		String result2=TextTemplate.getCustomerImageTemplate(nickname,xmlMap);
