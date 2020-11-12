@@ -21,9 +21,7 @@ public class RankingServlet extends HttpServlet{
 		List<Ranking> a=rank.queryRank();
 		for(Ranking b:a) {
 			System.out.println("排名:"+b);
-			
 		}
-		request.setAttribute("rank", a);
 		
 	}
 

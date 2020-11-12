@@ -186,7 +186,7 @@ public class TextTemplate {
 	
 	//	//客服发送排行榜
 	public static String getRanking() {
-		String url="http://vipsm.natapp1.cc/wechatdemo/Rank.jsp";
+		String url="http://vipsm.natapp1.cc/wechatdemo/Rank.html";
 		String result="{\r\n" + 
 				"    \"touser\":\""+userOpenid+"\",\r\n" + 
 				"    \"msgtype\":\"news\",\r\n" + 
