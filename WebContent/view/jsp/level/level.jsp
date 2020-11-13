@@ -110,8 +110,8 @@
 
 
 <!-- 新增 -->
-<button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-<a href="view/jsp/level/add.jsp"><button type="button" class="btn btn-primary" style="float:right;" ><i class="glyphicon glyphicon-plus"></i> 新增</button></a>
+<!-- <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+<a href="view/jsp/level/add.jsp"><button type="button" class="btn btn-primary" style="float:right;" ><i class="glyphicon glyphicon-plus"></i> 新增</button></a> -->
 <br>
  <hr style="clear:both;">
           <div class="table-responsive">
@@ -122,11 +122,9 @@
                   <th width="30">#</th>
 				  <th width="30"><input type="checkbox" id="allSelBox"></th>
                   <th>用户昵称</th>
-                  <th>用户openid</th>
                   <th>上级昵称</th>
-                  <th>上级openid</th>
                   <th>等级</th>
-                  <th width="100">操作</th>
+                  <!-- <th width="100">操作</th> -->
                 </tr>
               </thead>
 	              <tbody id="userData">
@@ -136,18 +134,16 @@
 	                	  	<td>${level.id}</td>
 	                	  	<td><input type='checkbox' name='levelid' value='"+user.id+"'></td>
 	                	 	<td>${level.nickname}</td>
-	                	 	<td>${level.openid}</td>
 	                	 	<td>${level.superNickname}</td>
-	                	 	<td>${level.superOpenid}</td>
 	                	 	<td>${level.ranking}</td>
-	                	 	<td>
+	                	 	<%-- <td>
     							<a href="getLevel?id=${level.id}"><button type='button' class='btn btn-success btn-xs'><i class='glyphicon glyphicon-check'></i></button>
     							</a>
     							<a href="view/jsp/level/add.jsp"><button type='button'  class='btn btn-primary btn-xs'><i class='glyphicon glyphicon-pencil'></i></button>
     							</a>
     							<a href="deleteLevel?id=${level.id}"><button type='button'  class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></button>
     							</a>
-    						</td>
+    						</td> --%>
 	                	  </tr>
 	               	      </c:forEach>         	 
 	              </tbody>
@@ -157,7 +153,7 @@
 						<ul class="pagination">
 							<li><a href="LevelServlet?start=0">首  页</a></li>
 							<li><a href="LevelServlet?start=${pre}">上一页</a></li>
-							<li  class=''><a href="#">${page}</a></li>
+							<li  class=''><a href="#">${page}/${sum}</a></li>
 							<!-- <li  class='active'><a href="UserServlet?start=5">2</a></li>
 							<li  class=''><a href="UserServlet?start=10">3</a></li> -->
 							<li><a href="LevelServlet?start=${next}">下一页</a></li>

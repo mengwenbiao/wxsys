@@ -40,19 +40,25 @@ public class LevelServlet extends HttpServlet{
 //        }
 
 		int last;
-		if (0 == total % count)
+		int sum=0;
+		if (0 == total % count) {
 			last = total - count;
-		else
+			sum=total/count;
+		}
+		else {
 			last = total - total % count;
+			sum=total/count+1;
+		}
+			
 
 		pre = pre < 0 ? 0 : pre;
 		next = next > last ? last : next;
-
+		
 		request.setAttribute("next", next);
 		request.setAttribute("pre", pre);
 		request.setAttribute("last", last);
 		request.setAttribute("page", page);
-
+		request.setAttribute("sum", sum);
 		// 判断是否进行模糊查询
 		String querySelect2 = request.getParameter("querySelect");
 

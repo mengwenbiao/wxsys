@@ -41,8 +41,9 @@ request.getContextPath()可以返回当前页面所在的应用的名字，就�
           <ul class="nav navbar-nav navbar-right">
             <li style="padding-top:8px;">
 				<div class="btn-group">
+				<%String name=(String)session.getAttribute("username");%>
 				  <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-					<i class="glyphicon glyphicon-user"></i>${resultUser.loginacct}<span class="caret"></span>
+					<i class="glyphicon glyphicon-user"></i><%=name %><span class="caret"></span>
 				  </button>
 					  <ul class="dropdown-menu" role="menu">
 						<li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
