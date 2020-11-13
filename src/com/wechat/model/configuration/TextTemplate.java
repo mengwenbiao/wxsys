@@ -13,8 +13,7 @@ import com.wechat.model.pojo.Media;
 import com.wechat.model.pojo.Ranking;
 import com.wechat.utils.ImgUtils;
 
-import java.util.List;
-import java.util.Map;
+
 
 import com.wechat.model.bean.level;
 import com.wechat.model.dao.crm.LevelDao;
@@ -24,6 +23,9 @@ import com.wechat.model.dao.crm.impl.LevelDaoImpl;
 import com.wechat.model.dao.crm.impl.MediaDaoImpl;
 
 import com.wechat.model.pojo.Flags;
+
+
+
 
 import com.wechat.utils.StringUtil;
 
@@ -80,6 +82,7 @@ public class TextTemplate {
 		String superNickname = json1.getStr("nickname");
 		String superOpenid = json1.getStr("openid");
 
+
 		Ranking rk=new Ranking(toUserId,superNickname);
 		new RankingDaoImpl().addRanking(rk);
 		System.out.println("上级用户名：" + superNickname + ",superOpenid:" + superOpenid);
@@ -94,6 +97,8 @@ public class TextTemplate {
 		// 判断数据库中是否已经有此openid
 		LevelDaoImpl ldi = new LevelDaoImpl();
 
+
+		
 		List<level> listLevel = ldi.listLevel(0, ldi.getTotal());
 		// 定义一个标记，为true，默认数据库中无此数据
 		boolean exist = true;
