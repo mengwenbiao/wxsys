@@ -1,6 +1,7 @@
 package com.wechat.model.dao.crm.base;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,6 +42,23 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
+		}finally {
+			JdbcUtil.close(conn, null, null);
+		}
+	}
+	
+	//查
+	public int queryOpenid(String sql) {
+		int count=0;
+		Connection conn=null;
+		PreparedStatement ps=null;
+		try {
+			conn=JdbcUtil.getConnection();
+			ps=conn.prepareStatement(sql);
+			count=ps.executeUpdate();
+			return count;
+		}catch(Exception e) {
+			throw new RuntimeException(e);
 		}finally {
 			JdbcUtil.close(conn, null, null);
 		}

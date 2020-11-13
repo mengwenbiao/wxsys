@@ -18,13 +18,21 @@ import com.wechat.model.pojo.Ranking;
 
 public class TestWx {
 	
+	
+	@Test
+	public void str() {
+		
+		String str="o8ft36JLsgbT1lX0L1QqdHZphCBY";
+		System.out.println(str.length());
+	}
+	
 	@Test
 	public void testDaoImpl() {
 		
 		RankingDao rank=new RankingDaoImpl();
-		List<Ranking> a=rank.queryRank();
+		//List<Ranking> a=rank.queryRank();
+		int count=rank.query("o8ft36JLsgbT1lX0L1QqdHZphCBY");
 		
-		System.out.println(a);
 //		Iterator<Ranking> rk=a.iterator();
 //		while(rk.hasNext()) {
 //			Ranking nickname=rk.next();
@@ -33,10 +41,10 @@ public class TestWx {
 //			System.out.println(nick+"---"+openid);
 //			
 //		}
-		for(Ranking b:a) {
-			System.out.println(b);
-			
-		}
+//		for(Ranking b:a) {
+//			System.out.println(b);
+//			
+//		}
 	}
 	
 	
