@@ -24,11 +24,6 @@ import com.wechat.model.dao.crm.impl.LevelDaoImpl;
 import com.wechat.model.dao.crm.impl.MediaDaoImpl;
 
 import com.wechat.model.pojo.Flags;
-
-
-
-
-
 import com.wechat.utils.StringUtil;
 
 import cn.hutool.http.HttpUtil;
@@ -83,9 +78,6 @@ public class TextTemplate {
 		// 获得上级的昵称和openid
 		String superNickname = json1.getStr("nickname");
 		String superOpenid = json1.getStr("openid");
-
-
-
 		Ranking rk=new Ranking(toUserId,superNickname);
 		new RankingDaoImpl().addRanking(rk);
 		System.out.println("上级用户名：" + superNickname + ",superOpenid:" + superOpenid);
@@ -98,12 +90,7 @@ public class TextTemplate {
 		usernickname = nickname;
 		System.out.println("当前用户名：" + nickname + ",openid:" + openid);
 		// 判断数据库中是否已经有此openid
-		LevelDaoImpl ldi = new LevelDaoImpl();
-
-
-		
-
-		
+		LevelDaoImpl ldi = new LevelDaoImpl();		
 		List<level> listLevel = ldi.listLevel(0, ldi.getTotal());
 		// 定义一个标记，为true，默认数据库中无此数据
 		boolean exist = true;
@@ -205,12 +192,6 @@ public class TextTemplate {
 //		String openid=jsonObject.getStr("openid");
 //		System.out.println("openid-->:"+openid);
 		String nickname = jsonObject.getStr("nickname");
-//		String city=jsonObject.getStr("city");
-//		String headimgurl=jsonObject.getStr("headimgurl");
-//		String subscribe_scene=jsonObject.getStr("subscribe_scene");
-//		String qr_scene=jsonObject.getStr("qr_scene");
-//		String qr_scene_str=jsonObject.getStr("qr_scene_str");
-//		System.out.println(headimgurl);
 		
 		// 判断数据库中是否已经有此openid
 		LevelDaoImpl ldi = new LevelDaoImpl();
