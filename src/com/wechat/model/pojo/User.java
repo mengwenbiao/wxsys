@@ -20,7 +20,6 @@ public class User implements Serializable{
 	private String language;
 	private String headimgurl;
 	private String subscribe_time;
-	private String unionid;
 	private String remark;
 	private String groupid;
 	private String tagid_list;
@@ -149,13 +148,6 @@ public class User implements Serializable{
 		this.subscribe_time = subscribe_time;
 	}
 
-	public String getUnionid() {
-		return unionid;
-	}
-
-	public void setUnionid(String unionid) {
-		this.unionid = unionid;
-	}
 
 	public String getRemark() {
 		return remark;
@@ -227,7 +219,6 @@ public class User implements Serializable{
 		this.language = language;
 		this.headimgurl = headimgurl;
 		this.subscribe_time = subscribe_time;
-		this.unionid = unionid;
 		this.remark = remark;
 		this.groupid = groupid;
 		this.tagid_list = tagid_list;
@@ -238,9 +229,13 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [counts=" + counts + ", date=" + date + "]";
+		return "User [id=" + id + ", subscribe=" + subscribe + ", openid=" + openid + ", nickname=" + nickname
+				+ ", sex=" + sex + ", city=" + city + ", country=" + country + ", province=" + province + ", language="
+				+ language + ", headimgurl=" + headimgurl + ", subscribe_time=" + subscribe_time + ", unionid="
+				+ ", remark=" + remark + ", groupid=" + groupid + ", tagid_list=" + tagid_list
+				+ ", subscribe_scene=" + subscribe_scene + ", qr_scene=" + qr_scene + ", qr_scene_str=" + qr_scene_str
+				+ "]";
 	}
-	
 	
 	
 }
