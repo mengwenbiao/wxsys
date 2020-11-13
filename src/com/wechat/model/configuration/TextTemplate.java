@@ -70,7 +70,8 @@ public class TextTemplate {
 		String toUser = xmlMap.get("EventKey");
 		// qrscene_o8ft36DgD0lV9CoQQUjNNqh0rfnU
 		String toUserId = toUser.substring(8);
-		userOpenid = toUserId;
+		//二维码用户的openid
+		userOpenid=toUserId.substring(0,28);
 
 		// 获取二维码中带的openid的用户信息：上级信息
 		String users = TokenConfig.getUserInfo(toUserId);
@@ -89,6 +90,59 @@ public class TextTemplate {
 		String openid = jsonObject.getStr("openid");
 		usernickname = nickname;
 		System.out.println("当前用户名：" + nickname + ",openid:" + openid);
+		
+		//获取客服接口，把助力消息发送给用户
+		String url=TokenConfig.getCustomerUrl();
+		String result=TextTemplate.getCustomerTemplate(nickname,xmlMap);
+		HttpUtil.post(url, result);
+		System.out.println("助力成功");
+		//查看助力榜单
+		String rankUrl=TextTemplate.getRanking();
+		HttpUtil.post(url, rankUrl);
+		//海报模板
+		String str=toUserId.substring(28);
+		//发送海报给关注公众号的用户
+		String result2=TextTemplate.getCustomerImageTemplate(nickname,xmlMap);
+		String media=null;
+		List<Media> ms=new MediaDaoImpl().queryMediaById();
+		//健壮性判断
+//		for(Media md:ms) {
+//			if(userOpenId.equals(md.getOpenid())) {
+//				//临时素材库只能在微信服务器保存3天，则要判断media是否失效
+//				//现在的时间是
+//				long nowTime=System.currentTimeMillis();
+//				//与上传的时间进行比较，如果超过3天就重新上传海报生成mediaid，如果没有失效，就调用数据库的mediaid
+//				long createtime=md.getCreatetime()+259200000;
+//				if(nowTime-createtime>=0) {
+//					media=md.getMediaid();
+//					break;
+//				}else {
+//					//从新生成
+//					media=ImageMediaConfig.getMedia(xmlMap);
+//					break;
+//				}
+//			}else {
+//				media=ImageMediaConfig.getMedia(xmlMap);
+//				break;
+//			}
+//		}
+		//判断
+		String template=null;
+		if(str.equals("haibao")) {
+			media=ImageMediaConfig.getMedia(xmlMap);
+			template=getHaiBao(media,xmlMap);
+		}else if(str.equals("two")) {
+			media=ImageMediaConfig.getMedia2(xmlMap);
+			template=getHaiBao(media,xmlMap);
+		}else if(str.equals("three")) {
+			media=ImageMediaConfig.getMedia3(xmlMap);
+			template=getHaiBao(media,xmlMap);
+		}
+	
+		//发送欢迎关注
+		HttpUtil.post(url, result2);
+		//发送海报
+		HttpUtil.post(url, template);
 		// 判断数据库中是否已经有此openid
 		LevelDaoImpl ldi = new LevelDaoImpl();		
 		List<level> listLevel = ldi.listLevel(0, ldi.getTotal());
@@ -138,45 +192,6 @@ public class TextTemplate {
 			Flags flag = new Flags(0, nickname, 0, 0, 0);
 			users1.add(flag);
 		}
-		// 获取客服接口，把助力消息发送给用户
-		String url = TokenConfig.getCustomerUrl();
-		String result = TextTemplate.getCustomerTemplate(nickname, xmlMap);
-		HttpUtil.post(url, result);
-
-		// 查看助力榜单
-		String rankUrl = TextTemplate.getRanking();
-		HttpUtil.post(url, rankUrl);
-
-		// 发送海报给关注公众号的用户
-		String media = null;
-		List<Media> ms = new MediaDaoImpl().queryMediaById();
-		// 健壮性判断
-		for (Media md : ms) {
-			if (userOpenId.equals(md.getOpenid())) {
-				// 临时素材库只能在微信服务器保存3天，则要判断media是否失效
-				// 现在的时间是
-				long nowTime = System.currentTimeMillis();
-				// 与上传的时间进行比较，如果超过3天就重新上传海报生成mediaid，如果没有失效，就调用数据库的mediaid
-				long createtime = md.getCreatetime() + 259200000;
-				if (nowTime - createtime >= 0) {
-					media = md.getMediaid();
-					break;
-				} else {
-					// 从新生成
-					media = ImageMediaConfig.getMedia(xmlMap);
-					break;
-				}
-			} else {
-				media = ImageMediaConfig.getMedia(xmlMap);
-				break;
-			}
-		}
-		String result2 = TextTemplate.getCustomerImageTemplate(nickname, xmlMap);
-		String template = getHaiBao(media, xmlMap);
-		// 发送欢迎关注
-		HttpUtil.post(url, result2);
-		// 发送海报
-		HttpUtil.post(url, template);
 		return "success";
 
 	}
@@ -193,6 +208,15 @@ public class TextTemplate {
 //		System.out.println("openid-->:"+openid);
 		String nickname = jsonObject.getStr("nickname");
 		
+		String url2 = TokenConfig.getCustomerUrl();
+		String media = ImageMediaConfig.getMedia(xmlMap);
+		String result2 = TextTemplate.getCustomerImageTemplate(nickname, xmlMap);
+		String template = getHaiBao(media, xmlMap);
+		// 回复欢迎关注信息
+		HttpUtil.post(url2, result2);
+		// 回复海报
+		HttpUtil.post(url2, template);
+	
 		// 判断数据库中是否已经有此openid
 		LevelDaoImpl ldi = new LevelDaoImpl();
 		List<level> listLevel = ldi.listLevel(0, ldi.getTotal());
@@ -229,20 +253,6 @@ public class TextTemplate {
 		if (est) {
 			Flags flag = new Flags(0, nickname, 0, 0, 0);
 			users1.add(flag);
-		}
-		String url2 = TokenConfig.getCustomerUrl();
-		String media = ImageMediaConfig.getMedia(xmlMap);
-		String result2 = TextTemplate.getCustomerImageTemplate(nickname, xmlMap);
-		String template = getHaiBao(media, xmlMap);
-		try {
-			int i = 1 / 0;
-		} catch (Exception e) {
-			return "success";
-		} finally {
-			// 回复欢迎关注信息
-			HttpUtil.post(url2, result2);
-			// 回复海报
-			HttpUtil.post(url2, template);
 		}
 		return "success";
 	}
@@ -297,6 +307,9 @@ public class TextTemplate {
 
 	// 点击菜单回复对应的海报
 	public static String getEventClick(Map<String, String> xmlMap) {
+		//获取客服接口
+		String url2 = TokenConfig.getCustomerUrl();
+
 		String key = xmlMap.get("EventKey");
 		// 获取openid
 		String opid = xmlMap.get("FromUserName");
@@ -349,7 +362,9 @@ public class TextTemplate {
 //			System.out.println("遍历数据库flags表："+us);
 			String mediaId = ImageMediaConfig.getMedia(xmlMap);
 			String result = getHaiBao(mediaId, xmlMap);
-			return result;
+			// 回复海报
+			HttpUtil.post(url2, result);
+			return "success";
 		} else if (key.equals("a002")) {
 			// new出这个实现类
 			FlagsDaoImpl users = new FlagsDaoImpl();
@@ -385,7 +400,10 @@ public class TextTemplate {
 // 			System.out.println("遍历数据库flags表："+us);
 			String mediaId = ImageMediaConfig.getMedia2(xmlMap);
 			String result = getHaiBao(mediaId, xmlMap);
-			return result;
+			// 回复海报
+			HttpUtil.post(url2, result);
+		    return "success";
+		
 		} else if (key.equals("a003")) {
 			// new出这个实现类
 			FlagsDaoImpl users = new FlagsDaoImpl();
@@ -419,10 +437,13 @@ public class TextTemplate {
 			}
 			String mediaId = ImageMediaConfig.getMedia3(xmlMap);
 			String result = getHaiBao(mediaId, xmlMap);
-			return result;
+			// 回复海报
+			HttpUtil.post(url2, result);
+			return "success";
 		} else if (key.equals("a004")) {
 			String openid = xmlMap.get("FromUserName");
 			SendTemplateMessage.sendTemplate(openid);
+			System.out.println("ok");
 			return "";
 		}
 		return null;

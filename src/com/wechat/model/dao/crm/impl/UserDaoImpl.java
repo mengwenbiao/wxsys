@@ -12,9 +12,9 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>{
 	
 	@Override
 	public void addUser(User user) {
-		String sql = "insert into user (id,subscribe,openid,nickname,sex,city,country,province,language,headimgurl,"
+		String sql = "insert into user (id,subscribe,openid,nickname,sex,city,country,province,language,headimgurl,subscribe_time,"
 				+ "remark,groupid,tagid_list,subscribe_scene) "
-				+ "values(0,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "values(0,?,?,?,?,?,?,?,?,?,now(),?,?,?,?)";
 		Object[] params=new Object[] {user.getSubscribe(),user.getOpenid(),user.getNickname(),user.getSex(),user.getCity(),user.getCountry(),user.getProvince(),user.getLanguage(),user.getHeadimgurl(),user.getRemark(),user.getGroupid(),user.getTagid_list(),user.getSubscribe_scene()};
 		dml(sql, params);
 	}
