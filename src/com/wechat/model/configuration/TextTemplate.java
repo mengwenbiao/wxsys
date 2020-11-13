@@ -15,6 +15,7 @@ import com.wechat.utils.ImgUtils;
 
 
 
+
 import com.wechat.model.bean.level;
 import com.wechat.model.dao.crm.LevelDao;
 import com.wechat.model.dao.crm.impl.FlagsDaoImpl;
@@ -23,6 +24,7 @@ import com.wechat.model.dao.crm.impl.LevelDaoImpl;
 import com.wechat.model.dao.crm.impl.MediaDaoImpl;
 
 import com.wechat.model.pojo.Flags;
+
 
 
 
@@ -83,6 +85,7 @@ public class TextTemplate {
 		String superOpenid = json1.getStr("openid");
 
 
+
 		Ranking rk=new Ranking(toUserId,superNickname);
 		new RankingDaoImpl().addRanking(rk);
 		System.out.println("上级用户名：" + superNickname + ",superOpenid:" + superOpenid);
@@ -97,6 +100,8 @@ public class TextTemplate {
 		// 判断数据库中是否已经有此openid
 		LevelDaoImpl ldi = new LevelDaoImpl();
 
+
+		
 
 		
 		List<level> listLevel = ldi.listLevel(0, ldi.getTotal());
