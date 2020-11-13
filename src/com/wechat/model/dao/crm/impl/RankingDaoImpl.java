@@ -27,4 +27,11 @@ public class RankingDaoImpl extends BaseDaoImpl<Ranking> implements RankingDao{
 	}
 
 
+	@Override
+	public int queryOpenid(String openid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 }
