@@ -48,16 +48,33 @@ public class WxDao {
 	}
 	
 	//回送微信端字符串
+	@SuppressWarnings("finally")
 	public static String getResponseStr(Map<String,String> xmlMap) {
 		//查看消息类型
 		String msgType=xmlMap.get("MsgType");
 		String resultXml="";
 		switch(msgType) {
 		//如果是文本消息....
-		case "text": resultXml=handleTextMessage(xmlMap);break;
+		case "text": 
+			try {
+				//提交错误信息
+				int i=1/0;
+			}catch(Exception e){
+				return resultXml="success";
+			}finally {
+				resultXml=handleTextMessage(xmlMap);break;
+			}
+			
 		//如果是用户关注等事件
-		case "event": resultXml=handleEventMessage(xmlMap);break;
-		
+		case "event": 
+			try {
+				//提交错误信息
+				int i=1/0;
+			}catch(Exception e){
+				return resultXml="success";
+			}finally {
+				resultXml=handleEventMessage(xmlMap);break;
+			}
 		}
 		return resultXml;
 	}

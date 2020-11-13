@@ -286,7 +286,7 @@ public class TextTemplate {
 			userflag = false;
 		}else {
 			userDao.addUser(user);
-			System.out.println("进入了");
+//			System.out.println("进入了");
 		}
 		
 		
