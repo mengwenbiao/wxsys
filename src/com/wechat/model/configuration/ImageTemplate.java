@@ -14,7 +14,8 @@ public class ImageTemplate {
 		
 		System.out.println(nickname);
 		//生成带用户openid公众号的二维码
-		String ticket=TokenConfig.getQrCodeTicket(openid);
+		String openidStr=openid+"haibao";
+		String ticket=TokenConfig.getQrCodeTicket(openidStr);
 		System.out.println(ticket);
 		//拿ticket去换取二维码url
 		String qrUrl=TokenConfig.getQrCode(ticket);
@@ -59,7 +60,8 @@ public class ImageTemplate {
 		ImgUtils.downImage(headimgurl,FileUtil.file("../../img/headerimg/header.jpg"));
 		System.out.println(nickname);
 		//生成带用户openid公众号的二维码
-		String ticket=TokenConfig.getQrCodeTicket(openid);
+		String openidStr=openid+"two";
+		String ticket=TokenConfig.getQrCodeTicket(openidStr);
 		System.out.println(ticket);
 		//拿ticket去换取二维码url
 		String qrUrl=TokenConfig.getQrCode(ticket);
@@ -77,13 +79,13 @@ public class ImageTemplate {
 		//用户二维码
 		String user="../../img/qrcodeimg/user.jpg";
 		//用户二维码缩放
-		ImgUtils.getImageScale(targetImage,user,0.4f);
+		ImgUtils.getImageScale(targetImage,user,0.5f);
 		//水印二维到海报上
 		String soucreImage2="../../img/Templateimg/two.jpg";
 		String targetImage2="../../img/Templateimg/userhaibao.jpg";
 		//水印图片
 		String b="../../img/qrcodeimg/user.jpg";
-		ImgUtils.getPressImage(soucreImage2,targetImage2,b,170,550);
+		ImgUtils.getPressImage(soucreImage2,targetImage2,b,-200,420);
 		//水印昵称
 		//最终海报
 		
@@ -94,14 +96,15 @@ public class ImageTemplate {
 		String url = FileUtil.file(targets).getAbsolutePath();
 		return url;
 	}
-	//海报模板二
+	//海报模板三
 	public static String getImg3(String headimgurl,String openid,String nickname) {
 		
 		//下载头像
 		ImgUtils.downImage(headimgurl,FileUtil.file("../../img/headerimg/header.jpg"));
 		System.out.println(nickname);
 		//生成带用户openid公众号的二维码
-		String ticket=TokenConfig.getQrCodeTicket(openid);
+		String openidStr=openid+"three";
+		String ticket=TokenConfig.getQrCodeTicket(openidStr);
 		System.out.println(ticket);
 		//拿ticket去换取二维码url
 		String qrUrl=TokenConfig.getQrCode(ticket);
@@ -125,7 +128,7 @@ public class ImageTemplate {
 		String targetImage2="../../img/Templateimg/userhaibao.jpg";
 		//水印图片
 		String b="../../img/qrcodeimg/user.jpg";
-		ImgUtils.getPressImage(soucreImage2,targetImage2,b,170,550);
+		ImgUtils.getPressImage(soucreImage2,targetImage2,b,250,550);
 		//水印昵称
 		//最终海报
 		
