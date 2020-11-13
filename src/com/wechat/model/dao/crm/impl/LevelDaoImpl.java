@@ -21,26 +21,8 @@ public class LevelDaoImpl extends BaseDaoImpl<level> implements LevelDao {
 	@Override
 	public int getTotal() {
 		int total = 0;
-		try {
-			Connection c = JdbcUtil.getConnection();
-			Statement s = c.createStatement();
-
-			String sql = "select count(*) from level";
-
-			ResultSet rs = s.executeQuery(sql);
-			while (rs.next()) {
-				total = rs.getInt(1);
-			}
-
-			//System.out.println("total:" + total);
-
-			s.close();
-
-			c.close();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		String sql = "select count(*) from level";
+		total = getTotal(sql);
 		return total;
 	}
 
@@ -78,6 +60,25 @@ public class LevelDaoImpl extends BaseDaoImpl<level> implements LevelDao {
 	public level getLevel(int id) {
 		String sql = "select * from level where id = " + id;
 		return queryForBean(sql, null);
+	}
+
+	// 通过上级openid查询有多少个下级
+	@Override
+	public int getCountLower(String superOpenid) {
+
+		int total = 0;
+		String sql = "select count(superOpenid) from level where superOpenid='" + superOpenid
+				+ "' group by superOpenid";
+		total = getTotal(sql);
+		return total;
+	}
+
+	// 通过openid获取level对象
+	@Override
+	public level getLevel(String Openid) {
+		String sql = "select * from level where Openid = ?";
+		Object[] param = {Openid};
+		return queryForBean(sql, param);
 	}
 
 	// 通过昵称模糊查询层次等级用户信息

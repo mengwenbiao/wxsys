@@ -11,6 +11,8 @@ public interface LevelDao{
 	public void updateLevel(level user);
 	public void deleteLevel(int id);
 	public level getLevel(int id);
+	public level getLevel(String Openid);
+	public int getCountLower(String superOpenid);
 	public List<level> list();
 	public List<level> listLevel(int start, int count);
 	public List<level> likeQueryListLevel(String name,int start, int count);

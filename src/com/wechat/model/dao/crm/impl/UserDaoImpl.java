@@ -1,5 +1,6 @@
 package com.wechat.model.dao.crm.impl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +12,10 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>{
 	
 	@Override
 	public void addUser(User user) {
-		String sql = "insert into user (nickname,openid,headimgurl) values(?,?,?)";
-		Object[] params=new Object[] {user.getNickname(),user.getOpenid(),user.getHeadimgurl()};
+		String sql = "insert into user (id,subscribe,openid,nickname,sex,city,country,province,language,headimgurl,"
+				+ "remark,groupid,tagid_list,subscribe_scene) "
+				+ "values(0,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		Object[] params=new Object[] {user.getSubscribe(),user.getOpenid(),user.getNickname(),user.getSex(),user.getCity(),user.getCountry(),user.getProvince(),user.getLanguage(),user.getHeadimgurl(),user.getRemark(),user.getGroupid(),user.getTagid_list(),user.getSubscribe_scene()};
 		dml(sql, params);
 	}
 
@@ -25,11 +28,11 @@ public class UserDaoImpl extends BaseDaoImpl<User> implements UserDao<User>{
 	}
 
 	@Override
-	public User query4Login(String loginacct) {
-		String sql="select * from user where nickname=?";
-		Object[] params=new Object[] {loginacct};
+	public User query4Login(String openid) {
+		String sql="select * from user where openid=?";
+		Object[] params=new Object[] {openid};
 		User user=queryForBean(sql, params);
-		System.out.println("impl"+user);
+		System.out.println(user);
 		return user;
 	}
 

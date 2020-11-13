@@ -109,6 +109,6 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 //		System.out.println(total+"------");
 		return total;
 	}
-
+	
 
 }
