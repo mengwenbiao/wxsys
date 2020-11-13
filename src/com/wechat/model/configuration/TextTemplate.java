@@ -17,11 +17,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.wechat.model.bean.level;
+import com.wechat.model.dao.crm.LevelDao;
+import com.wechat.model.dao.crm.impl.FlagsDaoImpl;
 import com.wechat.model.dao.crm.impl.LevelDaoImpl;
+
 import com.wechat.model.dao.crm.impl.MediaDaoImpl;
+
+import com.wechat.model.pojo.Flags;
+
 import com.wechat.utils.StringUtil;
 
-import Decoder.BASE64Encoder;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -74,8 +79,9 @@ public class TextTemplate {
 		// 获得上级的昵称和openid
 		String superNickname = json1.getStr("nickname");
 		String superOpenid = json1.getStr("openid");
-//		Ranking rk=new Ranking(toUserId,superNickname);
-//		new RankingDaoImpl().addRanking(rk);
+
+		Ranking rk=new Ranking(toUserId,superNickname);
+		new RankingDaoImpl().addRanking(rk);
 		System.out.println("上级用户名：" + superNickname + ",superOpenid:" + superOpenid);
 		// 获取当前用户信息
 		String info = TokenConfig.getUserInfo(userOpenId);// json文件格式
@@ -87,6 +93,7 @@ public class TextTemplate {
 		System.out.println("当前用户名：" + nickname + ",openid:" + openid);
 		// 判断数据库中是否已经有此openid
 		LevelDaoImpl ldi = new LevelDaoImpl();
+
 		List<level> listLevel = ldi.listLevel(0, ldi.getTotal());
 		// 定义一个标记，为true，默认数据库中无此数据
 		boolean exist = true;
