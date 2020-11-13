@@ -13,6 +13,7 @@ public class CreateMuen {
 		String KEYONE="a001";
 		String KEYTWO="a002";
 		String KEYTHREE="a003";
+		String KEYFORE="a004";
 		String url=" https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 		url=url.replace("ACCESS_TOKEN",TokenConfig.getAccessToken());
 		String data="  {\r\n" + 
@@ -59,7 +60,7 @@ public class CreateMuen {
 				"      {	\r\n" + 
 				"          \"type\":\"click\",\r\n" + 
 				"          \"name\":\"投诉\",\r\n" + 
-				"          \"key\":\"V1001_TODAY_MUSIC\"\r\n" + 
+				"          \"key\":\""+KEYFORE+"\"\r\n" + 
 				"      }]\r\n" + 
 				" }";
 		String result=HttpUtil.post(url, data);

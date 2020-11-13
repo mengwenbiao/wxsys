@@ -83,7 +83,7 @@ request.getContextPath()可以返回当前页面所在的应用的名字，就�
 								<a href="${pageContext.request.contextPath}/ImageListServlet" style="color:red;"><i class="glyphicon glyphicon-lock"></i> 图片管理</a> 
 							</li>
 							<li style="height:30px;">
-								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-king"></i>用户标签</a> 
+								<a href="/wechatdemo/FlagServlet"><i class="glyphicon glyphicon-king"></i> 用户标签</a> 
 							</li>
 							<li style="height:30px;">
 								<a href="/wechatdemo/LevelServlet"><i class="glyphicon glyphicon-lock"></i> 层级关系</a> 

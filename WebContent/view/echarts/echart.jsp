@@ -70,7 +70,7 @@
 						<span><i class="glyphicon glyphicon glyphicon-tasks"></i> 客服管理 </span> 
 						<ul style="margin-top:10px;">
 							<li style="height:30px;">
-								<a href="user.html" style="color:red;"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
+								<a href="/wechatdemo/UserListServlet" style="color:red;"><i class="glyphicon glyphicon-user"></i> 信息维护</a> 
 							</li>
 						</ul>
 					</li>

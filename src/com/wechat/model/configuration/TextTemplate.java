@@ -1,27 +1,19 @@
 package com.wechat.model.configuration;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import com.wechat.model.bean.ImageMediaId;
-import com.wechat.model.dao.crm.RankingDao;
+
+import com.wechat.model.bean.level;
 import com.wechat.model.dao.crm.impl.FlagsDaoImpl;
+import com.wechat.model.dao.crm.impl.LevelDaoImpl;
+import com.wechat.model.dao.crm.impl.MediaDaoImpl;
 import com.wechat.model.dao.crm.impl.RankingDaoImpl;
 import com.wechat.model.pojo.Flags;
 import com.wechat.model.pojo.Media;
 import com.wechat.model.pojo.Ranking;
-import com.wechat.utils.ImgUtils;
-
-import java.util.List;
-import java.util.Map;
-
-import com.wechat.model.bean.level;
-import com.wechat.model.dao.crm.impl.LevelDaoImpl;
-import com.wechat.model.dao.crm.impl.MediaDaoImpl;
 import com.wechat.utils.StringUtil;
 
-import Decoder.BASE64Encoder;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -112,6 +104,7 @@ public class TextTemplate {
 			if (nickname.equals(username)) {
 				est = false;
 			}
+			
 		}
 		System.out.println("est:"+est);
 		if(est) { Flags flag=new Flags(0,nickname,0,0,0); users1.add(flag); }
@@ -196,9 +189,9 @@ public class TextTemplate {
 		}catch(Exception e) {
 			return "success";
 		}finally {
-			//回复欢迎关注信息
+			//发送欢迎关注
 			HttpUtil.post(url2, result2);
-			//回复海报
+			//发送海报
 			HttpUtil.post(url2, template);
 		}
 		return "success";
@@ -284,6 +277,9 @@ public class TextTemplate {
 
 	//点击菜单回复对应的海报
 	public static String getEventClick(Map<String, String> xmlMap) {
+		//调用客服接口
+		String url2=TokenConfig.getCustomerUrl();
+		
 		String key=xmlMap.get("EventKey");
 		//获取openid
 		String opid=xmlMap.get("FromUserName");
@@ -325,24 +321,14 @@ public class TextTemplate {
 					System.out.println("username:-->"+username);
 //					System.out.println("sale="+sale+"free="+free+"teamsale="+teamsale);
 					users.update(flags);
-					break;
-				}/*else{
-					System.out.println("进入2了这里！！！");
-//					Flags flag=new Flags();
-					//将username设置为nickname
-//					flags.setUsername(nickname);
-//					flags.setSale(0);
-//					flags.setFree(1);
-//					flags.setTeamsale(0);
-//					users.add(flags);
-					break;
-				}*/
+				}
 			}
 			
 //			System.out.println("遍历数据库flags表："+us);
-			String mediaId=ImageMediaConfig.getMedia(xmlMap);
+ 			String mediaId=ImageMediaConfig.getMedia(xmlMap);
 			String result=getHaiBao(mediaId,xmlMap);
-			return result;
+			HttpUtil.post(url2, result);
+			return "";
 		}else if(key.equals("a002")) {
 			//new出这个实现类
 			FlagsDaoImpl users=new FlagsDaoImpl();
@@ -382,9 +368,10 @@ public class TextTemplate {
 				}*/
 			}
 // 			System.out.println("遍历数据库flags表："+us);
-			String mediaId=ImageMediaConfig.getMedia2(xmlMap);
+ 			String mediaId=ImageMediaConfig.getMedia2(xmlMap);
 			String result=getHaiBao(mediaId,xmlMap);
-			return result;
+			HttpUtil.post(url2, result);
+			return "";
 		}
 		else if(key.equals("a003")) {
 			//new出这个实现类
@@ -425,7 +412,8 @@ public class TextTemplate {
 			}
 			String mediaId=ImageMediaConfig.getMedia3(xmlMap);
 			String result=getHaiBao(mediaId,xmlMap);
-			return result;
+			HttpUtil.post(url2, result);
+			return "";
 		}else if(key.equals("a004")) {
 			String openid=xmlMap.get("FromUserName");
 			SendTemplateMessage.sendTemplate(openid);
