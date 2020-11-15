@@ -62,7 +62,7 @@ public class TestSql {
 		JSONObject jsonObject = JSONUtil.parseObj(result);
 		String accesstoken=jsonObject.getStr("access_token");
 //		System.out.println(accesstoken+"====");
-		String openid="ovpSs6oYIv3pei8CocoE88waa8IE";
+		String openid="ovpSs6vpTW7DAkhe7VeKZ672ZGUo";
 		String ruserUrl=userUrl.replace("ACCESS_TOKEN", accesstoken).replace("OPENID",openid);
 		
 		// 调用获取用户信息的接口
@@ -111,9 +111,9 @@ public class TestSql {
 		user.setQr_scene_str(qr_scene_str);
 		System.out.println(user);
 		User user1 = (User) userDao.query4Login(openid1);
-		String openid2=user1.getOpenid();
-		System.out.println(openid2);
-		if(!openid.equals(openid2)) {
+//		String openid2=user1.getOpenid();
+//		System.out.println(openid2);
+		if(user1==null) {
 			userDao.addUser(user);
 		}
 		System.out.println(nickname);
