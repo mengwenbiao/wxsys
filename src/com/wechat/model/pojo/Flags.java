@@ -41,7 +41,6 @@ public class Flags {
 		this.id = id;
 		this.username = username;
 	}
-	
 	public Flags(int id, String username, int sale, int free, int teamsale) {
 		super();
 		this.id = id;

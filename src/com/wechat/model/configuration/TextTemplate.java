@@ -251,7 +251,11 @@ public class TextTemplate {
 		}
 		System.out.println("est:" + est);
 		if (est) {
-			Flags flag = new Flags(0, nickname, 0, 0, 0);
+			Flags flag = new Flags();
+			flag.setUsername(nickname);
+			flag.setFree(1);
+			flag.setSale(0);
+			flag.setTeamsale(0);
 			users1.add(flag);
 		}
 		return "success";
