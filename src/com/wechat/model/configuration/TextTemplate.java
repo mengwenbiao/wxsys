@@ -6,25 +6,26 @@ import java.util.Map;
 
 import com.wechat.model.bean.ImageMediaId;
 import com.wechat.model.dao.crm.RankingDao;
-import com.wechat.model.dao.crm.UserDao;
 import com.wechat.model.dao.crm.impl.FlagsDaoImpl;
 import com.wechat.model.dao.crm.impl.RankingDaoImpl;
-import com.wechat.model.factory.DaoFactory;
 import com.wechat.model.pojo.Flags;
 import com.wechat.model.pojo.Media;
 import com.wechat.model.pojo.Ranking;
-import com.wechat.model.pojo.User;
 import com.wechat.utils.ImgUtils;
 
-import java.util.List;
-import java.util.Map;
+
+
 
 import com.wechat.model.bean.level;
+import com.wechat.model.dao.crm.LevelDao;
+import com.wechat.model.dao.crm.impl.FlagsDaoImpl;
 import com.wechat.model.dao.crm.impl.LevelDaoImpl;
+
 import com.wechat.model.dao.crm.impl.MediaDaoImpl;
+
+import com.wechat.model.pojo.Flags;
 import com.wechat.utils.StringUtil;
 
-import Decoder.BASE64Encoder;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -69,83 +70,81 @@ public class TextTemplate {
 		String toUser = xmlMap.get("EventKey");
 		// qrscene_o8ft36DgD0lV9CoQQUjNNqh0rfnU
 		String toUserId = toUser.substring(8);
-		userOpenid = toUserId;
+		//二维码用户的openid
+		userOpenid=toUserId.substring(0,28);
 
 		// 获取二维码中带的openid的用户信息：上级信息
 		String users = TokenConfig.getUserInfo(toUserId);
-//		String accesstoken=TokenConfig.getAccessToken();
 		JSONObject json1 = JSONUtil.parseObj(users);
 		// 获得上级的昵称和openid
 		String superNickname = json1.getStr("nickname");
 		String superOpenid = json1.getStr("openid");
-		System.out.println("superOpenid" + superOpenid);
-		Ranking rk = new Ranking(toUserId, superNickname);
+		Ranking rk=new Ranking(toUserId,superNickname);
 		new RankingDaoImpl().addRanking(rk);
 		System.out.println("上级用户名：" + superNickname + ",superOpenid:" + superOpenid);
 		// 获取当前用户信息
 		String info = TokenConfig.getUserInfo(userOpenId);// json文件格式
 		// 获取当前用户的昵称和openid
 		JSONObject jsonObject = JSONUtil.parseObj(info);
-//		String nickname=jsonObject.getStr("nickname");
-
-		String subscribe = jsonObject.get("subscribe").toString();
-		String openid = jsonObject.get("openid").toString();
-		String nickname = jsonObject.get("nickname").toString();
-		String sex = jsonObject.get("sex").toString();
-		String city = jsonObject.get("city").toString();
-		String country = jsonObject.get("country").toString();
-		String province = jsonObject.get("province").toString();
-		String language = jsonObject.get("language").toString();
-		String headimgurl = jsonObject.get("headimgurl").toString();
-		String subscribe_time = jsonObject.get("subscribe_time").toString();
-//		String unionid = parseObj.get("unionid").toString();
-//		System.out.println(unionid+"----");
-		String remark = jsonObject.get("remark").toString();
-		String groupid = jsonObject.get("groupid").toString();
-		String tagid_list = jsonObject.get("tagid_list").toString();
-		String subscribe_scene = jsonObject.get("subscribe_scene").toString();
-		String qr_scene = jsonObject.get("qr_scene").toString();
-		String qr_scene_str = jsonObject.get("qr_scene_str").toString();
-		// 存储
-		UserDao userDao = (UserDao) DaoFactory.getInstance().getDaoByName("userDao");
-//		UserDao userDao= new UserDaoImpl();
-		User user = new User();
-		user.setSubscribe(subscribe);
-		user.setOpenid(openid);
-		user.setNickname(nickname);
-		user.setSex(sex);
-		user.setCity(city);
-		user.setCountry(country);
-		user.setProvince(province);
-		user.setLanguage(language);
-		user.setHeadimgurl(headimgurl);
-		user.setSubscribe_time(subscribe_time);
-//		user.setUnionid(unionid);
-		user.setRemark(remark);
-		user.setGroupid(groupid);
-		user.setTagid_list(tagid_list);
-		user.setSubscribe_scene(subscribe_scene);
-		user.setQr_scene(qr_scene);
-		user.setQr_scene_str(qr_scene_str);
-		System.out.println(user);
-		User user1 = (User) userDao.query4Login(openid);
-		System.out.println(user1);
-		// 定义一个标记，为true，默认数据库中无此数据
-		boolean userflag = true;
-		if (user1 != null) {
-			userflag = false;
-		}else {
-			userDao.addUser(user);
-			System.out.println("进入了");
-		}
-
-		// 表情转换
-//		String openid=jsonObject.getStr("openid");
+		String nickname = jsonObject.getStr("nickname");
+		String openid = jsonObject.getStr("openid");
 		usernickname = nickname;
 		System.out.println("当前用户名：" + nickname + ",openid:" + openid);
-		int rank = 1;
+		
+		//获取客服接口，把助力消息发送给用户
+		String url=TokenConfig.getCustomerUrl();
+		String result=TextTemplate.getCustomerTemplate(nickname,xmlMap);
+		HttpUtil.post(url, result);
+		System.out.println("助力成功");
+		//查看助力榜单
+		String rankUrl=TextTemplate.getRanking();
+		HttpUtil.post(url, rankUrl);
+		//海报模板
+		String str=toUserId.substring(28);
+		//发送海报给关注公众号的用户
+		String result2=TextTemplate.getCustomerImageTemplate(nickname,xmlMap);
+		String media=null;
+		List<Media> ms=new MediaDaoImpl().queryMediaById();
+		//健壮性判断
+//		for(Media md:ms) {
+//			if(userOpenId.equals(md.getOpenid())) {
+//				//临时素材库只能在微信服务器保存3天，则要判断media是否失效
+//				//现在的时间是
+//				long nowTime=System.currentTimeMillis();
+//				//与上传的时间进行比较，如果超过3天就重新上传海报生成mediaid，如果没有失效，就调用数据库的mediaid
+//				long createtime=md.getCreatetime()+259200000;
+//				if(nowTime-createtime>=0) {
+//					media=md.getMediaid();
+//					break;
+//				}else {
+//					//从新生成
+//					media=ImageMediaConfig.getMedia(xmlMap);
+//					break;
+//				}
+//			}else {
+//				media=ImageMediaConfig.getMedia(xmlMap);
+//				break;
+//			}
+//		}
+		//判断
+		String template=null;
+		if(str.equals("haibao")) {
+			media=ImageMediaConfig.getMedia(xmlMap);
+			template=getHaiBao(media,xmlMap);
+		}else if(str.equals("two")) {
+			media=ImageMediaConfig.getMedia2(xmlMap);
+			template=getHaiBao(media,xmlMap);
+		}else if(str.equals("three")) {
+			media=ImageMediaConfig.getMedia3(xmlMap);
+			template=getHaiBao(media,xmlMap);
+		}
+	
+		//发送欢迎关注
+		HttpUtil.post(url, result2);
+		//发送海报
+		HttpUtil.post(url, template);
 		// 判断数据库中是否已经有此openid
-		LevelDaoImpl ldi = new LevelDaoImpl();
+		LevelDaoImpl ldi = new LevelDaoImpl();		
 		List<level> listLevel = ldi.listLevel(0, ldi.getTotal());
 		// 定义一个标记，为true，默认数据库中无此数据
 		boolean exist = true;
@@ -157,9 +156,25 @@ public class TextTemplate {
 			}
 		}
 		if (exist) {
-			// 当没有此用户时存入数据库
+			// 当没有此用户时把此用户信息存入数据库
+			int rank = 1;
 			level le = new level(null, nickname, openid, superNickname, superOpenid, rank);
 			ldi.addLevel(le);
+
+			// 判断此用户的上级助力人数有没有达到3人，达到的话，等级加一
+			int countLower = ldi.getCountLower(superOpenid);
+			// System.out.println("助力人数："+countLower);
+			int superRank = countLower / 3 + 1;
+			// System.out.println("助力等级："+superRank);
+			// 判断上级用户的等级为多少，如果小于superRank，则修改为superRank
+			level SuperLevel = ldi.getLevel(superOpenid);
+			int ranking = SuperLevel.getRanking();
+			// System.out.println("上级没有改变前的等级："+ranking);
+			if (superRank > ranking) {
+				SuperLevel.setRanking(superRank);
+				ldi.updateLevel(SuperLevel);
+			}
+
 		}
 		boolean est = true;
 		FlagsDaoImpl users1 = new FlagsDaoImpl();
@@ -177,45 +192,6 @@ public class TextTemplate {
 			Flags flag = new Flags(0, nickname, 0, 0, 0);
 			users1.add(flag);
 		}
-		// 获取客服接口，把助力消息发送给用户
-		String url = TokenConfig.getCustomerUrl();
-		String result = TextTemplate.getCustomerTemplate(nickname, xmlMap);
-		HttpUtil.post(url, result);
-
-		// 查看助力榜单
-		String rankUrl = TextTemplate.getRanking();
-		HttpUtil.post(url, rankUrl);
-
-		// 发送海报给关注公众号的用户
-		String media = null;
-		List<Media> ms = new MediaDaoImpl().queryMediaById();
-		// 健壮性判断
-		for (Media md : ms) {
-			if (userOpenId.equals(md.getOpenid())) {
-				// 临时素材库只能在微信服务器保存3天，则要判断media是否失效
-				// 现在的时间是
-				long nowTime = System.currentTimeMillis();
-				// 与上传的时间进行比较，如果超过3天就重新上传海报生成mediaid，如果没有失效，就调用数据库的mediaid
-				long createtime = md.getCreatetime() + 259200000;
-				if (nowTime - createtime >= 0) {
-					media = md.getMediaid();
-					break;
-				} else {
-					// 从新生成
-					media = ImageMediaConfig.getMedia(xmlMap);
-					break;
-				}
-			} else {
-				media = ImageMediaConfig.getMedia(xmlMap);
-				break;
-			}
-		}
-		String result2 = TextTemplate.getCustomerImageTemplate(nickname, xmlMap);
-		String template = getHaiBao(media, xmlMap);
-		// 发送欢迎关注
-		HttpUtil.post(url, result2);
-		// 发送海报
-		HttpUtil.post(url, template);
 		return "success";
 
 	}
@@ -223,8 +199,7 @@ public class TextTemplate {
 	// 不带参数公众号
 	public static String getEventWithOutParamsTemplate(Map<String, String> xmlMap) {
 		String userOpenId = xmlMap.get("FromUserName");
-
-		System.out.println(userOpenId);
+		// System.out.println(userOpenId);
 		String info = TokenConfig.getUserInfo(userOpenId);// json文件格式
 		// System.out.println(info);
 		// 解析微信服务器发送过来的json请求
@@ -232,64 +207,37 @@ public class TextTemplate {
 //		String openid=jsonObject.getStr("openid");
 //		System.out.println("openid-->:"+openid);
 		String nickname = jsonObject.getStr("nickname");
-//		String city=jsonObject.getStr("city");
-//		String headimgurl=jsonObject.getStr("headimgurl");
-//		String subscribe_scene=jsonObject.getStr("subscribe_scene");
-//		String qr_scene=jsonObject.getStr("qr_scene");
-//		String qr_scene_str=jsonObject.getStr("qr_scene_str");
-//		System.out.println(headimgurl);
-		//插入数据
-		String subscribe = jsonObject.get("subscribe").toString();
-		String openid = jsonObject.get("openid").toString();
-//		String nickname = jsonObject.get("nickname").toString();
-		String sex = jsonObject.get("sex").toString();
-		String city = jsonObject.get("city").toString();
-		String country = jsonObject.get("country").toString();
-		String province = jsonObject.get("province").toString();
-		String language = jsonObject.get("language").toString();
-		String headimgurl = jsonObject.get("headimgurl").toString();
-		String subscribe_time = jsonObject.get("subscribe_time").toString();
-//		String unionid = parseObj.get("unionid").toString();
-//		System.out.println(unionid+"----");
-		String remark = jsonObject.get("remark").toString();
-		String groupid = jsonObject.get("groupid").toString();
-		String tagid_list = jsonObject.get("tagid_list").toString();
-		String subscribe_scene = jsonObject.get("subscribe_scene").toString();
-		String qr_scene = jsonObject.get("qr_scene").toString();
-		String qr_scene_str = jsonObject.get("qr_scene_str").toString();
-		// 存储
-		UserDao userDao = (UserDao) DaoFactory.getInstance().getDaoByName("userDao");
-//		UserDao userDao= new UserDaoImpl();
-		User user = new User();
-		user.setSubscribe(subscribe);
-		user.setOpenid(openid);
-		user.setNickname(nickname);
-		user.setSex(sex);
-		user.setCity(city);
-		user.setCountry(country);
-		user.setProvince(province);
-		user.setLanguage(language);
-		user.setHeadimgurl(headimgurl);
-		user.setSubscribe_time(subscribe_time);
-		user.setRemark(remark);
-		user.setGroupid(groupid);
-		user.setTagid_list(tagid_list);
-		user.setSubscribe_scene(subscribe_scene);
-		user.setQr_scene(qr_scene);
-		user.setQr_scene_str(qr_scene_str);
-		System.out.println(user);
-		User user1 = (User) userDao.query4Login(openid);
-		System.out.println(user1);
+		
+		String url2 = TokenConfig.getCustomerUrl();
+		String media = ImageMediaConfig.getMedia(xmlMap);
+		String result2 = TextTemplate.getCustomerImageTemplate(nickname, xmlMap);
+		String template = getHaiBao(media, xmlMap);
+		// 回复欢迎关注信息
+		HttpUtil.post(url2, result2);
+		// 回复海报
+		HttpUtil.post(url2, template);
+	
+		// 判断数据库中是否已经有此openid
+		LevelDaoImpl ldi = new LevelDaoImpl();
+		List<level> listLevel = ldi.listLevel(0, ldi.getTotal());
 		// 定义一个标记，为true，默认数据库中无此数据
-		boolean userflag = true;
-		if (user1 != null) {
-			userflag = false;
-		}else {
-			userDao.addUser(user);
-//			System.out.println("进入了");
+		boolean exist = true;
+		for (int i = 0; i < listLevel.size(); i++) {
+			String openidSelect = listLevel.get(i).getOpenid();
+			// 当有此数据时，设置exist=false
+			if (openidSelect.equals(userOpenId)) {
+				exist = false;
+			}
 		}
-		
-		
+		//没有的话进行添加
+		if (exist) {
+			level superle = new level();
+			superle.setNickname(nickname);
+			superle.setOpenid(userOpenId);
+			superle.setRanking(1);
+			ldi.addLevel(superle);
+		}
+
 		boolean est = true;
 		FlagsDaoImpl users1 = new FlagsDaoImpl();
 		// 查询数据库内的信息
@@ -305,21 +253,6 @@ public class TextTemplate {
 		if (est) {
 			Flags flag = new Flags(0, nickname, 0, 0, 0);
 			users1.add(flag);
-		}
-		String url2 = TokenConfig.getCustomerUrl();
-		String media = ImageMediaConfig.getMedia(xmlMap);
-		String result2 = TextTemplate.getCustomerImageTemplate(nickname, xmlMap);
-		String template = getHaiBao(media, xmlMap);
-		try {
-			int i = 1 / 0;
-		} catch (Exception e) {
-			return "success";
-		} finally {
-			// 回复欢迎关注信息
-			System.out.println("1111");
-			HttpUtil.post(url2, result2);
-			// 回复海报
-			HttpUtil.post(url2, template);
 		}
 		return "success";
 	}
@@ -374,6 +307,9 @@ public class TextTemplate {
 
 	// 点击菜单回复对应的海报
 	public static String getEventClick(Map<String, String> xmlMap) {
+		//获取客服接口
+		String url2 = TokenConfig.getCustomerUrl();
+
 		String key = xmlMap.get("EventKey");
 		// 获取openid
 		String opid = xmlMap.get("FromUserName");
@@ -426,7 +362,9 @@ public class TextTemplate {
 //			System.out.println("遍历数据库flags表："+us);
 			String mediaId = ImageMediaConfig.getMedia(xmlMap);
 			String result = getHaiBao(mediaId, xmlMap);
-			return result;
+			// 回复海报
+			HttpUtil.post(url2, result);
+			return "success";
 		} else if (key.equals("a002")) {
 			// new出这个实现类
 			FlagsDaoImpl users = new FlagsDaoImpl();
@@ -462,7 +400,10 @@ public class TextTemplate {
 // 			System.out.println("遍历数据库flags表："+us);
 			String mediaId = ImageMediaConfig.getMedia2(xmlMap);
 			String result = getHaiBao(mediaId, xmlMap);
-			return result;
+			// 回复海报
+			HttpUtil.post(url2, result);
+		    return "success";
+		
 		} else if (key.equals("a003")) {
 			// new出这个实现类
 			FlagsDaoImpl users = new FlagsDaoImpl();
@@ -496,10 +437,13 @@ public class TextTemplate {
 			}
 			String mediaId = ImageMediaConfig.getMedia3(xmlMap);
 			String result = getHaiBao(mediaId, xmlMap);
-			return result;
+			// 回复海报
+			HttpUtil.post(url2, result);
+			return "success";
 		} else if (key.equals("a004")) {
 			String openid = xmlMap.get("FromUserName");
 			SendTemplateMessage.sendTemplate(openid);
+			System.out.println("ok");
 			return "";
 		}
 		return null;
